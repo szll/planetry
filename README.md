@@ -52,9 +52,7 @@ Feel free to add more Lua scripts or edit the system.json.
 
 ### Describing the simulated scene
 
-Planetry needs data about what it's simulating, e.g. the solarsystem. The description has to be done by you via a scene file.  
-
-The following snipped shows the structure of a scene file:
+Planetry needs data about what it's going to simulate, e.g. the solarsystem. A scene file is this kind of description. The following snipped shows the structure of a scene file:
 
 ```json
 {
@@ -113,13 +111,13 @@ It consists of four properties:
   TODO: describe bodies
 -->
 
-Example: testdata/system.json 
+Example: see testdata/system.json 
 
 ### Lua scripting
 
-Everyone should be able to check for certain events like if Earth moved out of the habitable zone or if Mars reaches a velocity/acceleration above a certain point without changing the application code itself.
+Everyone should be able to check for certain events e.g. if Earth moved out of the habitable zone or if Mars reaches a velocity/acceleration above a certain point without changing the application code itself.
 
-To be able to do this, a Lua scripting VM is available. Inside this VM, there are functions of the Go simulation scope available in order to get the information you need to write useful scripts.
+To be able to do this, a Lua scripting VM is available. There are functions of the Go simulation scope available inside this VM. The functions can be used in order to get the information you need to write useful scripts.
 
 The following code snipped shows a script, that is will check each simulation week (every 7th step), if the earth moved outside the habitable zone (either to close to or to far away from the sun).
 
@@ -155,14 +153,14 @@ distance = function (x1, y1, z1, x2, y2, z2)
 end
 ```
 
-> **NOTE**: Each script can only have one "main" function. The "main" function must be the only named function in a script file. If you have to use other functions, please write them as unnamed functions stored in vars, like in the example above.
+> **NOTE**: Each script can only have one "main" function. The "main" function must be the only named function in the script file. If you have to use other functions, please write them as unnamed functions stored in vars, like "distance" in the example above.
 The reason is: on file load, planetry will parse the file for one function of the notation "function \<name\>()" and stores this \<name\> in a map, which will be used in the simulation to call this script function. 
 
-> **ATTENTION**: Most Lua functions will return refrences, so be careful when you alter values of bodies!
+> **ATTENTION**: Most Go -> Lua functions will return refrences, so be careful when you alter values of bodies!
 
 #### Functions and constants available in LuaVM
 
-Currently available Golang functions in Lua scope are:
+Currently available Go functions in Lua scope are:
  - `getBodyByName(name string) *Body`: returns a body of the current scene by its name; the name is specified in the scene file
  - `getSteps() int`: returns the simulation steps (currently days)
  - `setPaused(paused bool)`: pauses or unpauses the simulation, depending on the `paused` value 
@@ -175,8 +173,8 @@ As you may noticed: this project is in a really early stage of development. Here
 
 - Tests and automated testing
 - "on pause scripts" that allow to print data when the user or scripts pause the simulation
-- "addBody(...)" as Go funtion in the Lua script scope
-- Draw bodies in their real size not just pixels
+- "addBody(...)" as Go function in the Lua script scope
+- Draw bodies in their real size; not just pixels
 - Attach camera to object
 - Draw name on pause
 - Collision
