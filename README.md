@@ -46,7 +46,7 @@ When the executable was build, you can start the simulation by typing:
 ./planetry
 ```
 
-> **NOTE**: Planetry loads all the files in `testdata/`. Later you can create projects and load these, but currently if you want to change someting in the simulation, just alter the files in `testdata/`.
+> **NOTE**: Planetry loads all the files in `testdata/`. Later you can create projects and load these, but currently if you want to change something in the simulation, just alter the files in `testdata/`.
 
 Feel free to add more Lua scripts or edit the system.json.
 
