@@ -48,7 +48,12 @@ When the executable was build, you can start the simulation by typing:
 
 > **NOTE**: Planetry loads all the files in `testdata/`. Later you can create projects and load these, but currently if you want to change something in the simulation, just alter the files in `testdata/`.
 
-Feel free to add more Lua scripts or edit the system.json.
+Feel free to add more Lua scripts or edit `testdata/system.json`.
+
+On runtime, you can use:
+ - `y` to zoom out,
+ - `x` to zoom in and
+ - `SPACE` to pause/unpause
 
 ### Describing the simulated scene
 
@@ -111,7 +116,7 @@ It consists of four properties:
   TODO: describe bodies
 -->
 
-Example: see testdata/system.json 
+Example: see `testdata/system.json`
 
 ### Lua scripting
 
