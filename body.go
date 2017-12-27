@@ -18,7 +18,7 @@ func (b *Body) GetAttraction(o *Body) (*Vector3D, error) {
 	l := v.Length() // Also distance between bodies
 
 	if l == 0 {
-		return nil, errors.New(`Dividing by zero will result in a black hole`)
+		return nil, errors.New("Dividing by zero will result in a black hole")
 	}
 
 	fg := G * b.Mass * o.Mass / (l * l)
@@ -26,6 +26,6 @@ func (b *Body) GetAttraction(o *Body) (*Vector3D, error) {
 	return v.NormalizeAndFactorize(fg), nil
 }
 
-func (b *Body) Collides(o Body) bool {
+func (b *Body) Collides(o *Body) bool {
 	return false
 }
