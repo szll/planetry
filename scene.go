@@ -100,8 +100,8 @@ func (s *Scene) Draw(renderer *sdl.Renderer) {
 			drawableBody.Color.Alpha,
 		)
 		for _, point := range drawableBody.Path {
-			x := int(point.X*scale) - s.Camera.x
-			y := int(point.Y*scale) - s.Camera.y
+			x := int(point.X*scale) + s.Camera.x
+			y := int(point.Y*scale) + s.Camera.y
 			if s.Camera.IsVisible(x, y) {
 				renderer.DrawPoint(x, y)
 			}
