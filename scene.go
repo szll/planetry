@@ -11,14 +11,14 @@ const MAX_TRACING_POINTS = 50
 type DrawableBody struct {
 	PhysicalBody *Body
 	Path         PointQueue
-	Color        Color
+	Color        *Color
 }
 
 type Scene struct {
 	Bodies          []*DrawableBody
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
-	BackgroundColor Color
+	BackgroundColor *Color
 	zoom            int16
 	destroyed       bool
 	simulations     int64
