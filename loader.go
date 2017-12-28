@@ -162,7 +162,6 @@ func loadDrawableBody(obj *jason.Object) (*DrawableBody, error) {
 	}, nil
 }
 
-// loadScene creates a new scene from a json file
 func loadScene(path string) (*Scene, error) {
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -211,7 +210,6 @@ func loadScene(path string) (*Scene, error) {
 	}, nil
 }
 
-// loadAllLuaFiles loads all Lua script files in a directory
 func loadAllLuaFiles(dir string) ([]string, error) {
 	fi, err := os.Stat(dir)
 	if err != nil {
