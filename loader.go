@@ -214,7 +214,7 @@ func loadAllLuaFiles(dir string) ([]string, error) {
 		if !file.IsDir() && strings.Contains(fileName, ".lua") {
 			content, err := ioutil.ReadFile(path.Join(dir, fileName))
 			if err != nil {
-				return []string{}, err
+				return nil, err
 			}
 
 			luaFiles = append(luaFiles, string(content))
