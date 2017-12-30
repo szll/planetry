@@ -12,77 +12,60 @@ import (
 )
 
 func loadColor(obj *jason.Object) (*Color, error) {
-	redColorInt, err := obj.GetInt64("red")
-	if err != nil {
-		return nil, err
-	}
+	colorNames := []string{"red", "green", "blue", "alpha"}
 
-	greenColorInt, err := obj.GetInt64("green")
-	if err != nil {
-		return nil, err
-	}
-
-	blueColorInt, err := obj.GetInt64("blue")
-	if err != nil {
-		return nil, err
-	}
-
-	alphaColorInt, err := obj.GetInt64("alpha")
-	if err != nil {
-		return nil, err
+	values := map[string]uint8{}
+	for _, colorName := range colorNames {
+		color, err := obj.GetInt64(colorName)
+		if err != nil {
+			return nil, err
+		}
+		values[colorName] = uint8(color)
 	}
 
 	return &Color{
-		Red:   uint8(redColorInt),
-		Green: uint8(greenColorInt),
-		Blue:  uint8(blueColorInt),
-		Alpha: uint8(alphaColorInt),
+		Red:   values["red"],
+		Green: values["green"],
+		Blue:  values["blue"],
+		Alpha: values["alpha"],
 	}, nil
 }
 
 func loadPoint3D(obj *jason.Object) (*Point3D, error) {
-	x, err := obj.GetFloat64("x")
-	if err != nil {
-		return nil, err
-	}
+	dimNames := []string{"x", "y", "z"}
 
-	y, err := obj.GetFloat64("y")
-	if err != nil {
-		return nil, err
-	}
-
-	z, err := obj.GetFloat64("z")
-	if err != nil {
-		return nil, err
+	values := map[string]float64{}
+	for _, dimName := range dimNames {
+		dim, err := obj.GetFloat64(dimName)
+		if err != nil {
+			return nil, err
+		}
+		values[dimName] = dim
 	}
 
 	return &Point3D{
-		X: x,
-		Y: y,
-		Z: z,
+		X: values["x"],
+		Y: values["y"],
+		Z: values["z"],
 	}, nil
 }
 
 func loadVector3D(obj *jason.Object) (*Vector3D, error) {
-	x, err := obj.GetFloat64("x")
-	if err != nil {
-		return nil, err
-	}
+	dimNames := []string{"x", "y", "z"}
 
-	y, err := obj.GetFloat64("y")
-	if err != nil {
-		return nil, err
-	}
-
-	z, err := obj.GetFloat64("z")
-	if err != nil {
-		return nil, err
+	values := map[string]float64{}
+	for _, dimName := range dimNames {
+		dim, err := obj.GetFloat64(dimName)
+		if err != nil {
+			return nil, err
+		}
+		values[dimName] = dim
 	}
 
 	return &Vector3D{
-		X: x,
-		Y: y,
-		Z: z,
+		X: values["x"],
+		Y: values["y"],
+		Z: values["z"],
 	}, nil
 }
 
