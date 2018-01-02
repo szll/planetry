@@ -2,32 +2,37 @@ package main
 
 import (
 	"github.com/stevedonovan/luar"
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 const SIMULATION_STEP = float64(24 * 60 * 60)
 const MAX_TRACING_POINTS = 50
 
+type Renderer interface {
+	SetDrawColor(r, g, b, a uint8) error
+	Clear() error
+	DrawPoint(x, y int) error
+}
+
 type DrawableBody struct {
 	PhysicalBody *Body
 	Path         PointQueue
-	Color        Color
+	Color        *Color
 }
 
 type Scene struct {
 	Bodies          []*DrawableBody
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
-	BackgroundColor Color
+	BackgroundColor *Color
 	zoom            int16
 	destroyed       bool
 	simulations     int64
 	paused          bool
 }
 
-func (s *Scene) Simulate(delta float64) {
-	if s.paused {
-		return
+func (s *Scene) Simulate(delta float64) error {
+	if s.paused || s.destroyed {
+		return nil
 	}
 
 	step := SIMULATION_STEP
@@ -42,7 +47,7 @@ func (s *Scene) Simulate(delta float64) {
 
 			force, err := drawableBody.PhysicalBody.GetAttraction(other.PhysicalBody)
 			if err != nil {
-				panic(err)
+				return err
 			}
 
 			totalForce.Add(force)
@@ -80,9 +85,10 @@ func (s *Scene) Simulate(delta float64) {
 	}
 
 	s.simulations = s.simulations + 1
+	return nil
 }
 
-func (s *Scene) Draw(renderer *sdl.Renderer) {
+func (s *Scene) Draw(renderer Renderer) {
 	renderer.SetDrawColor(
 		s.BackgroundColor.Red,
 		s.BackgroundColor.Green,
@@ -100,8 +106,8 @@ func (s *Scene) Draw(renderer *sdl.Renderer) {
 			drawableBody.Color.Alpha,
 		)
 		for _, point := range drawableBody.Path {
-			x := int(point.X*scale) - s.Camera.x
-			y := int(point.Y*scale) - s.Camera.y
+			x := int(point.X*scale) + s.Camera.x
+			y := int(point.Y*scale) + s.Camera.y
 			if s.Camera.IsVisible(x, y) {
 				renderer.DrawPoint(x, y)
 			}
@@ -119,11 +125,12 @@ func (s *Scene) Zoom(amount int16) {
 		s.zoom = 1
 	}
 	if s.zoom >= 200 {
-		s.zoom = 1
+		s.zoom = 200
 	}
 }
 
-func (s *Scene) destroy() {
+func (s *Scene) Destroy() {
+	// TODO: free resources / nil refrences
 	s.destroyed = true
 }
 

@@ -11,7 +11,140 @@ import (
 	"github.com/antonholmquist/jason"
 )
 
-// loadScene creates a new scene from a json file
+func loadColor(obj *jason.Object) (*Color, error) {
+	colorNames := []string{"red", "green", "blue", "alpha"}
+
+	values := map[string]uint8{}
+	for _, colorName := range colorNames {
+		color, err := obj.GetInt64(colorName)
+		if err != nil {
+			return nil, err
+		}
+		values[colorName] = uint8(color)
+	}
+
+	return &Color{
+		Red:   values["red"],
+		Green: values["green"],
+		Blue:  values["blue"],
+		Alpha: values["alpha"],
+	}, nil
+}
+
+func loadPoint3D(obj *jason.Object) (*Point3D, error) {
+	dimNames := []string{"x", "y", "z"}
+
+	values := map[string]float64{}
+	for _, dimName := range dimNames {
+		dim, err := obj.GetFloat64(dimName)
+		if err != nil {
+			return nil, err
+		}
+		values[dimName] = dim
+	}
+
+	return &Point3D{
+		X: values["x"],
+		Y: values["y"],
+		Z: values["z"],
+	}, nil
+}
+
+func loadVector3D(obj *jason.Object) (*Vector3D, error) {
+	dimNames := []string{"x", "y", "z"}
+
+	values := map[string]float64{}
+	for _, dimName := range dimNames {
+		dim, err := obj.GetFloat64(dimName)
+		if err != nil {
+			return nil, err
+		}
+		values[dimName] = dim
+	}
+
+	return &Vector3D{
+		X: values["x"],
+		Y: values["y"],
+		Z: values["z"],
+	}, nil
+}
+
+func loadBody(obj *jason.Object) (*Body, error) {
+	name, err := obj.GetString("name")
+	if err != nil {
+		return nil, err
+	}
+
+	mass, err := obj.GetFloat64("mass")
+	if err != nil {
+		return nil, err
+	}
+
+	radius, err := obj.GetFloat64("radius")
+	if err != nil {
+		return nil, err
+	}
+
+	pObj, err := obj.GetObject("position")
+	if err != nil {
+		return nil, err
+	}
+
+	position, err := loadPoint3D(pObj)
+	if err != nil {
+		return nil, err
+	}
+
+	position.X = position.X * AU
+	position.Y = position.Y * AU
+	position.Z = position.Z * AU
+
+	vObj, err := obj.GetObject("velocity")
+	if err != nil {
+		return nil, err
+	}
+
+	velocity, err := loadVector3D(vObj)
+	if err != nil {
+		return nil, err
+	}
+
+	velocity.X = velocity.X * 1000
+	velocity.Y = velocity.Y * 1000
+	velocity.Z = velocity.Z * 1000
+
+	return &Body{
+		Name:     name,
+		Mass:     mass,
+		Radius:   radius,
+		Position: position,
+		Velocity: velocity,
+	}, nil
+}
+
+func loadDrawableBody(obj *jason.Object) (*DrawableBody, error) {
+	body, err := loadBody(obj)
+	if err != nil {
+		return nil, err
+	}
+
+	cObj, err := obj.GetObject("color")
+	if err != nil {
+		return nil, err
+	}
+
+	color, err := loadColor(cObj)
+	if err != nil {
+		return nil, err
+	}
+
+	return &DrawableBody{
+		PhysicalBody: body,
+		Path:         PointQueue{},
+		Color:        color,
+	}, nil
+}
+
 func loadScene(path string) (*Scene, error) {
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -23,162 +156,43 @@ func loadScene(path string) (*Scene, error) {
 		return nil, err
 	}
 
-	jBackgroundColor, err := v.GetObject("backgroundColor")
+	bgcObj, err := v.GetObject("backgroundColor")
 	if err != nil {
 		return nil, err
 	}
 
-	redBackgroundColorInt, err := jBackgroundColor.GetInt64("red")
+	bgColor, err := loadColor(bgcObj)
 	if err != nil {
 		return nil, err
 	}
 
-	greenBackgroundColorInt, err := jBackgroundColor.GetInt64("green")
-	if err != nil {
-		return nil, err
-	}
-
-	blueBackgroundColorInt, err := jBackgroundColor.GetInt64("blue")
-	if err != nil {
-		return nil, err
-	}
-
-	alphaBackgroundColorInt, err := jBackgroundColor.GetInt64("alpha")
-	if err != nil {
-		return nil, err
-	}
-
-	jBodies, err := v.GetObjectArray("bodies")
+	bodies, err := v.GetObjectArray("bodies")
 	if err != nil {
 		return nil, err
 	}
 
 	var dbs []*DrawableBody
-	for _, jBody := range jBodies {
-		name, err := jBody.GetString("name")
+	for _, bodyObj := range bodies {
+		db, err := loadDrawableBody(bodyObj)
 		if err != nil {
 			return nil, err
-		}
-
-		mass, err := jBody.GetFloat64("mass")
-		if err != nil {
-			return nil, err
-		}
-
-		radius, err := jBody.GetFloat64("radius")
-		if err != nil {
-			return nil, err
-		}
-
-		jPosition, err := jBody.GetObject("position")
-		if err != nil {
-			return nil, err
-		}
-
-		pX, err := jPosition.GetFloat64("x")
-		if err != nil {
-			return nil, err
-		}
-
-		pY, err := jPosition.GetFloat64("y")
-		if err != nil {
-			return nil, err
-		}
-
-		pZ, err := jPosition.GetFloat64("z")
-		if err != nil {
-			return nil, err
-		}
-
-		jVelocity, err := jBody.GetObject("velocity")
-		if err != nil {
-			return nil, err
-		}
-
-		vX, err := jVelocity.GetFloat64("x")
-		if err != nil {
-			return nil, err
-		}
-
-		vY, err := jVelocity.GetFloat64("y")
-		if err != nil {
-			return nil, err
-		}
-
-		vZ, err := jVelocity.GetFloat64("z")
-		if err != nil {
-			return nil, err
-		}
-
-		jColor, err := jBody.GetObject("color")
-		if err != nil {
-			return nil, err
-		}
-
-		redInt, err := jColor.GetInt64("red")
-		if err != nil {
-			return nil, err
-		}
-
-		greenInt, err := jColor.GetInt64("green")
-		if err != nil {
-			return nil, err
-		}
-
-		blueInt, err := jColor.GetInt64("blue")
-		if err != nil {
-			return nil, err
-		}
-
-		alphaInt, err := jColor.GetInt64("alpha")
-		if err != nil {
-			return nil, err
-		}
-
-		db := &DrawableBody{
-			PhysicalBody: &Body{
-				Name:   name,
-				Mass:   mass,
-				Radius: radius,
-				Position: &Point3D{
-					X: pX * AU,
-					Y: pY * AU,
-					Z: pZ * AU,
-				},
-				Velocity: &Vector3D{
-					X: vX * 1000,
-					Y: vY * 1000,
-					Z: vZ * 1000,
-				},
-			},
-			Path: PointQueue{},
-			Color: Color{
-				Red:   uint8(redInt),
-				Green: uint8(greenInt),
-				Blue:  uint8(blueInt),
-				Alpha: uint8(alphaInt),
-			},
 		}
 
 		dbs = append(dbs, db)
 	}
 
 	return &Scene{
-		Bodies:         dbs,
-		ForcesOfBodies: map[*DrawableBody]Vector3D{},
-		BackgroundColor: Color{
-			Red:   uint8(redBackgroundColorInt),
-			Green: uint8(greenBackgroundColorInt),
-			Blue:  uint8(blueBackgroundColorInt),
-			Alpha: uint8(alphaBackgroundColorInt),
-		},
-		Camera:    nil,
-		zoom:      10, // TODO: initial state from json
-		destroyed: false,
+		Bodies:          dbs,
+		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
+		Camera:          nil,
+		BackgroundColor: bgColor,
+		zoom:            10,
+		destroyed:       false,
+		simulations:     0,
+		paused:          false,
 	}, nil
 }
 
-// loadAllLuaFiles loads all Lua script files in a directory
 func loadAllLuaFiles(dir string) ([]string, error) {
 	fi, err := os.Stat(dir)
 	if err != nil {
@@ -200,7 +214,7 @@ func loadAllLuaFiles(dir string) ([]string, error) {
 		if !file.IsDir() && strings.Contains(fileName, ".lua") {
 			content, err := ioutil.ReadFile(path.Join(dir, fileName))
 			if err != nil {
-				return []string{}, err
+				return nil, err
 			}
 
 			luaFiles = append(luaFiles, string(content))
