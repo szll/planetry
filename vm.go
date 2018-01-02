@@ -23,6 +23,10 @@ type Vm struct {
 
 // NewVM creates a new Lua VM for a given scene
 func NewVM(scene *Scene) *Vm {
+	if scene == nil {
+		return nil
+	}
+
 	vm := Vm{
 		luaVM:   luar.Init(),
 		scene:   scene,
@@ -41,6 +45,7 @@ func (vm *Vm) Destroy() {
 	}
 
 	vm.luaVM.Close()
+	vm.luaVM = nil
 }
 
 // LoadScripts loads all lua scripts inside a given directory
