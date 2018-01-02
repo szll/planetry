@@ -129,7 +129,7 @@ func (s *Scene) Zoom(amount int16) {
 	}
 }
 
-func (s *Scene) destroy() {
+func (s *Scene) Destroy() {
 	// TODO: free resources / nil refrences
 	s.destroyed = true
 }

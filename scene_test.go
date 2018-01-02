@@ -140,39 +140,55 @@ func TestDraw(t *testing.T) {
 func TestZoom(t *testing.T) {
 	s := createTestingScene()
 	s.Zoom(-1000)
-	assert.Equal(t, s.zoom, int16(1), "zoom shoud be 0")
+	assert.Equal(t, s.zoom, int16(1), "zoom should be 0")
 
 	s.Zoom(1000)
-	assert.Equal(t, s.zoom, int16(200), "zoom shoud be 200")
+	assert.Equal(t, s.zoom, int16(200), "zoom should be 200")
 
 	s.Zoom(-1)
-	assert.Equal(t, s.zoom, int16(199), "zoom shoud be 199")
+	assert.Equal(t, s.zoom, int16(199), "zoom should be 199")
 }
 
 func TestDestroy(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	s.Destroy()
+	assert.Equal(t, s.destroyed, true, "destroyed should be true")
 }
 
 func TestIsDestroyed(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	s.Destroy()
+	assert.Equal(t, s.IsDestroyed(), true, "IsDestroyed should return true")
 }
 
 func TestGetSimulations(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	assert.Equal(t, s.GetSimulations(), int64(0), "GetSimulations should return 0")
 }
 
 func TestIsPaused(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	assert.Equal(t, s.IsPaused(), false, "IsPaused should return false")
 }
 
 func TestSetPaused(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	s.SetPaused(true)
+	assert.Equal(t, s.IsPaused(), true, "IsPaused should return true")
 }
 
 func TestGetBodyByName(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	b := s.GetBodyByName("n1")
+
+	assert.Exactly(t, b, s.Bodies[0].PhysicalBody, "b should be s.Bodies[0].PhysicalBody")
+
+	assert.Nil(t, s.GetBodyByName("x1"))
 }
 
 func TestGsetVMMethodes(t *testing.T) {
-	// TODO: implement
+	s := createTestingScene()
+	m := s.getVMMethodes()
+
+	assert.Equal(t, len(m), 4, "getVMMethodes should return map containing four functions")
 }
