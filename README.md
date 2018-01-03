@@ -168,7 +168,13 @@ The reason is: on file load, planetry will parse the file for one function of th
 Currently available Go functions in Lua scope are:
  - `getBodyByName(name string) *Body`: returns a body of the current scene by its name; the name is specified in the scene file
  - `getSteps() int`: returns the simulation steps (currently days)
- - `setPaused(paused bool)`: pauses or unpauses the simulation, depending on the `paused` value 
+ - `setPaused(paused bool)`: pauses or unpauses the simulation, depending on the `paused` value
+ <!--
+ - `createPoint3D(x, y, z float64) *Point3D`: creates a new Point3D
+ - `createVector3D(x, y, z float64) *Vector3D`: creates a new Vector3D
+ - `createBody(name string, mass, radius float64, position *Point3D, velocity *Vector3D) *Body`: creates a new body`
+ - `addBodyToScene(body *Body, red, green, blue) err`: adds a new body to the scene
+ -->
 
 Also the constant value of the astronomical unit `AU` is available in the Lua scope.
 
@@ -176,10 +182,11 @@ Also the constant value of the astronomical unit `AU` is available in the Lua sc
 
 As you may noticed: this project is in a really early stage of development. Here's the stuff that has to be done next:
 
+- Automated installation, including dependencies
 - Tests and automated testing
-- "on pause scripts" that allow to print data when the user or scripts pause the simulation
 - "addBody(...)" as Go function in the Lua script scope
 - Draw bodies in their real size; not just pixels
+- "on pause scripts" that allow to print data when the user or scripts pause the simulation
 - Attach camera to object
 - Draw name on pause
 - Collision
