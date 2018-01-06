@@ -28,6 +28,7 @@ cd lua-5.1.5
 make
 make linux
 sudo make install
+sudo ln /usr/local/lib/liblua.a /usr/local/lib/liblua5.1.a
 cd ..
 
 # remove lua5.1 dir
