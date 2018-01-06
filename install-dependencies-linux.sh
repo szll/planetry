@@ -19,4 +19,5 @@ cd ../..
 # remove sdl2 dir
 rm -rf SDL2-2.0.7
 
+# install lua
 sudo apt-get install liblua5.1
