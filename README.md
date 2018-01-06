@@ -17,7 +17,7 @@ For example: you simulate the solar system with the sun and all its planets and 
 
 ### External Dependencies
 
-This project needs [sdl2](https://www.libsdl.org) and [Lua 5.1](https://www.lua.org/manual/5.1/) as requirements which have to be installed first.
+This project needs [SDL2](https://www.libsdl.org) and [Lua 5.1](https://www.lua.org/manual/5.1/) as requirements which have to be installed first.
 
 #### Mac
 
