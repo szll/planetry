@@ -182,8 +182,6 @@ Also the constant value of the astronomical unit `AU` is available in the Lua sc
 
 As you may noticed: this project is in a really early stage of development. Here's the stuff that has to be done next:
 
-- Automated installation, including dependencies
-- Tests and automated testing
 - "addBody(...)" as Go function in the Lua script scope
 - Draw bodies in their real size; not just pixels
 - "on pause scripts" that allow to print data when the user or scripts pause the simulation
