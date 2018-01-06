@@ -26,6 +26,7 @@ tar -xvzf lua5.1.tar.gz
 # install lua5.1
 cd lua-5.1.5
 make
+make linux
 sudo make install
 cd ..
 
