@@ -14,17 +14,25 @@ For example: you simulate the solar system with the sun and all its planets and 
 
 ## Installation
 
+### External Dependencies
+
 This project needs [sdl2](https://www.libsdl.org) and [Lua 5.1](https://www.lua.org/manual/5.1/) as requirements which have to be installed first.
 
-### Mac
+#### Mac
 
-First install the requirements via [homebrew](https://brew.sh):
+First install the requirements via [homebrew](https://brew.sh): `brew install dep sdl2 lua@5.1`
 
-```
-brew install dep sdl2 lua@5.1
-```
+#### Linux (tested on Ubuntu)
 
-The dependencies are managed via [dep](https://github.com/golang/dep). To get the dependencies type:
+Just type: `./install-dependencies-linux.sh`
+
+#### Windows
+
+Todo ... I would be more than happy to get help here :D
+
+### Golang dependencies and building
+
+The golang dependencies are managed via [dep](https://github.com/golang/dep). To get the dependencies type:
 
 ```
 dep ensure
@@ -35,10 +43,6 @@ To build the executable type:
 ```
 go build
 ```
-
-### Linux & Windows
-
-Todo ... I would be more than happy to get help here :D
 
 ## Usage
 
