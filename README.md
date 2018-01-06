@@ -33,17 +33,9 @@ Todo ... I would be more than happy to get help here :D
 
 ### Golang dependencies and building
 
-The golang dependencies are managed via [dep](https://github.com/golang/dep). To get the dependencies type:
+The golang dependencies are managed via [dep](https://github.com/golang/dep). To get the dependencies type: `dep ensure`
 
-```
-dep ensure
-```
-
-To build the executable type:
-
-```
-go build
-```
+To build the executable type: `go build`
 
 ## Usage
 
