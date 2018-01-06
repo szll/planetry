@@ -1,0 +1,16 @@
+language: go
+
+go:
+  - 1.8
+  - master
+
+sudo: enabled
+
+before_install: 
+  - ./install-dependencies-linux.sh
+
+install:
+  - dep ensure
+
+script:
+  - go test
