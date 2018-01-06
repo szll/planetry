@@ -136,20 +136,20 @@ The following code snipped shows a script, that is will check each simulation we
 ```Lua
 habitableZoneCheckDone = false
 
--- Both functions "getSteps" and "setPaused" as well as "AU" are exposed from the Go context
+-- Both functions "getSteps" and "setPaused" as well as "AU" are exposed from the go context
 function habitableZone()
   local steps = getSteps()
   if steps > 0 and steps % 7 == 0 and not habitableZoneCheckDone then
     local earth = getBodyByName("Earth")
     local sun = getBodyByName("Sun")
     local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
-    if d < AU * 0.95 then
-      print("too close to the sun", d / AU, steps / 365)
-      setPaused(true)
-      habitableZoneCheckDone = true
-    end
-    if d > AU * 2.4 then
-      print("too far to the sun", d / AU, steps / 365)
+    
+    local toClose = d < AU * 0.95
+    local toFar = d > AU * 2.4
+
+    if toClose or toFar then
+      if toClose then print("too close to the sun", d / AU, steps / 365) end
+      if toFar then print("too far to the sun", d / AU, steps / 365) end
       setPaused(true)
       habitableZoneCheckDone = true
     end

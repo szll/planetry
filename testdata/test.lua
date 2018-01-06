@@ -7,13 +7,13 @@ function habitableZone()
     local earth = getBodyByName("Earth")
     local sun = getBodyByName("Sun")
     local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
-    if d < AU * 0.95 then
-      print("too close to the sun", d / AU, steps / 365)
-      setPaused(true)
-      habitableZoneCheckDone = true
-    end
-    if d > AU * 2.4 then
-      print("too far to the sun", d / AU, steps / 365)
+    
+    local toClose = d < AU * 0.95
+    local toFar = d > AU * 2.4
+
+    if toClose or toFar then
+      if toClose then print("too close to the sun", d / AU, steps / 365) end
+      if toFar then print("too far to the sun", d / AU, steps / 365) end
       setPaused(true)
       habitableZoneCheckDone = true
     end
