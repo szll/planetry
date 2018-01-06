@@ -2,7 +2,9 @@
 
 # Planetry
 
-> **ATTENTION:** this project is totally **WORK IN PROGRESS**
+[![Build Status](https://travis-ci.org/szll/planetry.svg?branch=master)](https://travis-ci.org/szll/planetry)
+
+**ATTENTION:** this project is totally **WORK IN PROGRESS**
 
 Planetry is a simple app for gravitational simulations of objects in space. You can specify the objects or bodys by your own. A scripting system allows you to check for specific events.
 
