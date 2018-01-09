@@ -1,6 +1,8 @@
 package main
 
 import (
+	"math"
+
 	"github.com/stevedonovan/luar"
 )
 
@@ -150,6 +152,19 @@ func (s *Scene) SetPaused(paused bool) {
 	s.paused = paused
 }
 
+func DrawCircle(renderer Renderer, x, y, radius int, color Color) {
+	twoPi := math.Pi * 2
+
+	renderer.SetDrawColor(color.Red, color.Green, color.Blue, color.Alpha)
+
+	angleInc := 1.0 / float64(radius)
+	for angle := 0.0; angle <= twoPi; angle += angleInc {
+		xpos := float64(x) + float64(radius)*math.Cos(angle)
+		ypos := float64(y) + float64(radius)*math.Sin(angle)
+		renderer.DrawPoint(int(xpos), int(ypos))
+	}
+}
+
 // Following functions are available in lua scope
 
 func (s *Scene) GetBodyByName(name string) *Body {
@@ -214,20 +229,3 @@ func (s *Scene) getVMMethodes() luar.Map {
 		"removeBodyByName": s.RemoveBodyByName,
 	}
 }
-
-// void draw_circle(SDL_Point center, int radius, SDL_Color color)
-// {
-//     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-//     for (int w = 0; w < radius * 2; w++)
-//     {
-//         for (int h = 0; h < radius * 2; h++)
-//         {
-//             int dx = radius - w; // horizontal offset
-//             int dy = radius - h; // vertical offset
-//             if ((dx*dx + dy*dy) <= (radius * radius))
-//             {
-//                 SDL_RenderDrawPoint(renderer, center.x + dx, center.y + dy);
-//             }
-//         }
-//     }
-// }
