@@ -26,7 +26,6 @@ type Scene struct {
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
 	BackgroundColor *Color
-	zoom            int16
 	destroyed       bool
 	simulations     int64
 	paused          bool
@@ -118,17 +117,7 @@ func (s *Scene) Draw(renderer Renderer) {
 }
 
 func (s *Scene) GetScale() float64 {
-	return float64(s.zoom) / AU
-}
-
-func (s *Scene) Zoom(amount int16) {
-	s.zoom = s.zoom + amount
-	if s.zoom <= 0 {
-		s.zoom = 1
-	}
-	if s.zoom >= 200 {
-		s.zoom = 200
-	}
+	return float64(s.Camera.zoom) / AU
 }
 
 func (s *Scene) Destroy() {

@@ -103,9 +103,9 @@ func run() int {
 						scene.SetPaused(!paused)
 					}
 				case sdl.K_x:
-					scene.Zoom(1)
+					scene.Camera.Zoom(1)
 				case sdl.K_y:
-					scene.Zoom(-1)
+					scene.Camera.Zoom(-1)
 				}
 			}
 		}

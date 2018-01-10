@@ -64,7 +64,6 @@ func createTestingScene() *Scene {
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          c,
 		BackgroundColor: &Color{},
-		zoom:            10,
 		destroyed:       false,
 		simulations:     0,
 		paused:          false,
@@ -135,18 +134,6 @@ func TestDraw(t *testing.T) {
 
 	// This should not fail; TODO: I know it's poor testing at this point ...
 	s.Draw(&MockRenderer{})
-}
-
-func TestZoom(t *testing.T) {
-	s := createTestingScene()
-	s.Zoom(-1000)
-	assert.Equal(t, s.zoom, int16(1), "zoom should be 0")
-
-	s.Zoom(1000)
-	assert.Equal(t, s.zoom, int16(200), "zoom should be 200")
-
-	s.Zoom(-1)
-	assert.Equal(t, s.zoom, int16(199), "zoom should be 199")
 }
 
 func TestDestroy(t *testing.T) {

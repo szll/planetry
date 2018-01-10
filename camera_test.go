@@ -59,3 +59,22 @@ func TestIsVisible(t *testing.T) {
 	assert.Equal(t, c.IsVisible(x1, y1), true, "(x1, y1) should be visible")
 	assert.Equal(t, c.IsVisible(x2, y2), false, "(x2, y2) should be invisible")
 }
+
+func TestZoom(t *testing.T) {
+	windowWidth := 10
+	windowHeight := 10
+
+	c, err := NewCamera(windowWidth, windowHeight)
+	if err != nil {
+		t.Error(err)
+	}
+
+	c.Zoom(-1000)
+	assert.Equal(t, c.zoom, int16(1), "zoom should be 0")
+
+	c.Zoom(1000)
+	assert.Equal(t, c.zoom, int16(200), "zoom should be 200")
+
+	c.Zoom(-1)
+	assert.Equal(t, c.zoom, int16(199), "zoom should be 199")
+}

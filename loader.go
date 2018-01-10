@@ -186,7 +186,6 @@ func loadScene(path string) (*Scene, error) {
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          nil,
 		BackgroundColor: bgColor,
-		zoom:            10,
 		destroyed:       false,
 		simulations:     0,
 		paused:          false,
