@@ -19,7 +19,7 @@ go get -u github.com/golang/dep/cmd/dep
 # # remove sdl2 dir
 # rm -rf SDL2-2.0.7
 
-sudo apt install libsdl2
+sudo apt install libsdl2-dev
 
 # install lua
 sudo apt-get install liblua5.1
