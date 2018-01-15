@@ -164,11 +164,6 @@ func TestSetPaused(t *testing.T) {
 	assert.Equal(t, s.IsPaused(), true, "IsPaused should return true")
 }
 
-func TestDrawCircle(t *testing.T) {
-	// This should not fail; TODO: I know it's poor testing at this point ...
-	DrawCircle(&MockRenderer{}, 10, 10, 5, Color{Red: 1, Green: 2, Blue: 3, Alpha: 4})
-}
-
 func TestGetBodyByName(t *testing.T) {
 	s := createTestingScene()
 	b := s.GetBodyByName("n1")
