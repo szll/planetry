@@ -1,3 +1,4 @@
 vendor/
 planetry
 *.test
+docs/*.ai
