@@ -138,6 +138,7 @@ func TestLoadVector3DError(t *testing.T) {
 func TestLoadBody(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -163,6 +164,7 @@ func TestLoadBody(t *testing.T) {
 		t.Error(err)
 	}
 
+	assert.Equal(t, b.ID, "id", "Name should be 'id'")
 	assert.Equal(t, b.Name, "name", "Name should be 'name'")
 	assert.Equal(t, b.Mass, 1.0, "Mass should be 1")
 	assert.Equal(t, b.Radius, 1.0, "Radius should be 1")
@@ -360,6 +362,7 @@ func TestLoadBodyErrorVector3D(t *testing.T) {
 func TestLoadDrawableBody(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,

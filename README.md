@@ -76,6 +76,7 @@ Planetry needs data about what it's going to simulate, e.g. the solarsystem. A s
   },
   "bodies": [
     {
+      "id": "sun",
       "name": "Sun",
       "mass": 1.98892e30,
       "radius": 1.0,
@@ -132,8 +133,8 @@ habitableZoneCheckDone = false
 function habitableZone()
   local steps = getSteps()
   if steps > 0 and steps % 7 == 0 and not habitableZoneCheckDone then
-    local earth = getBodyByName("Earth")
-    local sun = getBodyByName("Sun")
+    local earth = getBodyById("earth")
+    local sun = getBodyById("sun")
     local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
     
     local toClose = d < AU * 0.95
@@ -165,6 +166,7 @@ The reason is: on file load, planetry will parse the file for one function of th
 #### Functions and constants available in LuaVM
 
 Currently available Go functions in Lua scope are:
+ - `getBodyById(id string) *Body`: returns a body of the current scene by its id; the name is specified in the scene file
  - `getBodyByName(name string) *Body`: returns a body of the current scene by its name; the name is specified in the scene file
  - `getSteps() int`: returns the simulation steps (currently days)
  - `setPaused(paused bool)`: pauses or unpauses the simulation, depending on the `paused` value

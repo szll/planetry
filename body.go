@@ -5,6 +5,7 @@ import (
 )
 
 type Body struct {
+	ID			 string
 	Name     string
 	Mass     float64
 	Radius   float64

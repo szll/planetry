@@ -98,6 +98,9 @@ func (s *Scene) Draw(renderer Renderer) {
 	scale := s.GetScale()
 
 	for _, drawableBody := range s.Bodies {
+		// Check if camera is attached to this body
+		// Set camera position to this object
+
 		for _, point := range drawableBody.Path {
 			x := int(point.X*scale) + s.Camera.x
 			y := int(point.Y*scale) + s.Camera.y
@@ -134,6 +137,15 @@ func (s *Scene) SetPaused(paused bool) {
 }
 
 // Following functions are available in lua scope
+
+func (s *Scene) GetBodyById(id string) *Body {
+	for _, dBody := range s.Bodies {
+		if dBody.PhysicalBody.ID == id {
+			return dBody.PhysicalBody
+		}
+	}
+	return nil
+}
 
 func (s *Scene) GetBodyByName(name string) *Body {
 	for _, dBody := range s.Bodies {
@@ -187,6 +199,7 @@ func (s *Scene) RemoveBodyByName(name string) {
 func (s *Scene) getVMMethodes() luar.Map {
 	return luar.Map{
 		"AU":               AU,
+		"getBodyById":      s.GetBodyById,
 		"getBodyByName":    s.GetBodyByName,
 		"getSteps":         s.GetSimulations,
 		"setPaused":        s.SetPaused,

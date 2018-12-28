@@ -15,6 +15,7 @@
   },
   "bodies": [
     {
+      "id": "sun",
       "name": "Sun",
       "mass": 1.98892e30,
       "radius": 1.0,
@@ -35,6 +36,7 @@
         "alpha": 250
       }
     }, {
+      "id": "merc",
       "name": "Mercury",
       "mass": 3.33011e23,
       "radius": 1.0,
@@ -55,6 +57,7 @@
         "alpha": 250
       }
     }, {
+      "id": "ven",
       "name": "Venus",
       "mass": 4.8685e24,
       "radius": 1.0,
@@ -75,6 +78,7 @@
         "alpha": 250
       }
     }, {
+      "id": "earth",
       "name": "Earth",
       "mass": 5.9742e24,
       "radius": 1.0,
@@ -95,6 +99,7 @@
         "alpha": 250
       }
     }, {
+      "id": "mars",
       "name": "Mars",
       "mass": 6.4171e23,
       "radius": 1.0,
@@ -115,6 +120,7 @@
         "alpha": 250
       }
     }, {
+      "id": "jup",
       "name": "Jupiter",
       "mass": 1.89819e27,
       "radius": 1,
@@ -135,6 +141,7 @@
         "alpha": 250
       }
     }, {
+      "id": "sat",
       "name": "Saturn",
       "mass": 5.6834e26,
       "radius": 1.0,
@@ -155,6 +162,7 @@
         "alpha": 250
       }
     }, {
+      "id": "uranus",
       "name": "Uranus",
       "mass": 8.6813e25,
       "radius": 1.0,
@@ -175,6 +183,7 @@
         "alpha": 250
       }
     }, {
+      "id": "nep",
       "name": "Neptune",
       "mass": 1.02413e26,
       "radius": 1.0,
@@ -195,6 +204,7 @@
         "alpha": 250
       }
     }, {
+      "id": "bs1",
       "name": "Big Star",
       "mass": 6e30,
       "radius": 1.0,

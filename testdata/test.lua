@@ -4,8 +4,8 @@ habitableZoneCheckDone = false
 function habitableZone()
   local steps = getSteps()
   if steps > 0 and steps % 7 == 0 and not habitableZoneCheckDone then
-    local earth = getBodyByName("Earth")
-    local sun = getBodyByName("Sun")
+    local earth = getBodyById("earth")
+    local sun = getBodyById("sun")
     local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
     
     local toClose = d < AU * 0.95

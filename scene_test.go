@@ -9,6 +9,7 @@ import (
 func createTestingScene() *Scene {
 	db1 := DrawableBody{
 		PhysicalBody: &Body{
+			ID:     "n1id",
 			Name:   "n1",
 			Mass:   1,
 			Radius: 1,
@@ -34,6 +35,7 @@ func createTestingScene() *Scene {
 
 	db2 := DrawableBody{
 		PhysicalBody: &Body{
+			ID:     "n2id",
 			Name:   "n2",
 			Mass:   1,
 			Radius: 1,
@@ -164,6 +166,15 @@ func TestSetPaused(t *testing.T) {
 	assert.Equal(t, s.IsPaused(), true, "IsPaused should return true")
 }
 
+func TestGetBodyById(t *testing.T) {
+	s := createTestingScene()
+	b := s.GetBodyById("n1id")
+
+	assert.Exactly(t, b, s.Bodies[0].PhysicalBody, "b should be s.Bodies[0].PhysicalBody")
+
+	assert.Nil(t, s.GetBodyById("x1id"))
+}
+
 func TestGetBodyByName(t *testing.T) {
 	s := createTestingScene()
 	b := s.GetBodyByName("n1")
@@ -224,5 +235,5 @@ func TestGetVMMethodes(t *testing.T) {
 	s := createTestingScene()
 	m := s.getVMMethodes()
 
-	assert.Equal(t, len(m), 9, "getVMMethodes should return map containing four functions")
+	assert.Equal(t, len(m), 10, "getVMMethodes should return map containing 10 entries")
 }
