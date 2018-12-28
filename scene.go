@@ -5,7 +5,7 @@ import (
 )
 
 const SIMULATION_STEP = float64(24 * 60 * 60)
-const MAX_TRACING_POINTS = 1
+const MAX_TRACING_POINTS = 50
 
 type Renderer interface {
 	SetDrawColor(r, g, b, a uint8) error
