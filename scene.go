@@ -5,7 +5,7 @@ import (
 )
 
 const SIMULATION_STEP = float64(24 * 60 * 60)
-const MAX_TRACING_POINTS = 50
+const MAX_TRACING_POINTS = 1
 
 type Renderer interface {
 	SetDrawColor(r, g, b, a uint8) error
@@ -98,17 +98,11 @@ func (s *Scene) Draw(renderer Renderer) {
 	scale := s.GetScale()
 
 	for _, drawableBody := range s.Bodies {
-		renderer.SetDrawColor(
-			drawableBody.Color.Red,
-			drawableBody.Color.Green,
-			drawableBody.Color.Blue,
-			drawableBody.Color.Alpha,
-		)
 		for _, point := range drawableBody.Path {
 			x := int(point.X*scale) + s.Camera.x
 			y := int(point.Y*scale) + s.Camera.y
 			if s.Camera.IsVisible(x, y) {
-				renderer.DrawPoint(x, y)
+				DrawCircle(renderer, x, y, 0, *drawableBody.Color)
 			}
 		}
 	}
