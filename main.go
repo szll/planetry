@@ -128,7 +128,7 @@ func run() int {
 
 		// Sleep the remaining loop time
 		delta, ticks = timer.getTime()
-		if ticks < 1000/LOOPS_PER_SECOND {
+		if ticks < 1000 / LOOPS_PER_SECOND {
 			sdl.Delay((1000 / LOOPS_PER_SECOND) - ticks)
 		}
 
