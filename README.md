@@ -191,4 +191,4 @@ As you may noticed: this project is in a really early stage of development. Here
 
 ## Know Issues
 
-After switching to MacOS Moajve I had to update the go dependencies as well as SDL on the system.
+- After switching to MacOS Moajve I had to update the go dependencies as well as SDL on the system.
