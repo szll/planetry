@@ -4,11 +4,11 @@
 go get -u github.com/golang/dep/cmd/dep
 
 # download and unzip sdl2
-curl -o sdl2.tar.gz http://libsdl.org/release/SDL2-2.0.7.tar.gz
+curl -o sdl2.tar.gz http://libsdl.org/release/SDL2-2.0.9.tar.gz
 tar -xvzf sdl2.tar.gz
 
 # install sdl2
-cd SDL2-2.0.7
+cd SDL2-2.0.9
 mkdir build
 cd build
 ../configure
@@ -17,7 +17,7 @@ sudo make install
 cd ../..
 
 # remove sdl2 dir
-rm -rf SDL2-2.0.7
+rm -rf SDL2-2.0.9
 
 # install lua
 sudo apt-get install liblua5.1
