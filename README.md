@@ -148,7 +148,7 @@ function habitableZone()
   end
 end
 
--- This function is also availbale to other scripts since it's in the global scope
+-- This function is also available to other scripts since it's in the global scope
 distance = function (x1, y1, z1, x2, y2, z2)
   local dx = x2-x1
   local dy = y2-y1
