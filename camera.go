@@ -7,14 +7,14 @@ type Camera struct {
 	y            int
 	windowWidth  int
 	windowHeight int
-	zoom         int16
+	zoom         float64
 }
 
 func NewCamera(windowWidth, windowHeight int) (*Camera, error) {
 	if windowWidth < 1 || windowHeight < 1 {
 		return nil, errors.New("windowWidth or windowHeight cannot be < 1")
 	}
-	return &Camera{windowWidth / 2, windowHeight / 2, windowWidth, windowHeight, 10}, nil
+	return &Camera{windowWidth / 2, windowHeight / 2, windowWidth, windowHeight, 8}, nil
 }
 
 func (c *Camera) SetToPosition(x, y int) {
@@ -30,12 +30,13 @@ func (c *Camera) IsVisible(x, y int) bool {
 	return !(lowWidth || hightWidth || lowHeight || highWidth)
 }
 
-func (c *Camera) Zoom(amount int16) {
-	c.zoom = c.zoom + amount
-	if c.zoom <= 0 {
+func (c *Camera) ZoomIn() {
+	c.zoom *= 2
+}
+
+func (c *Camera) ZoomOut() {
+	c.zoom /= 2
+	if c.zoom < 1 {
 		c.zoom = 1
-	}
-	if c.zoom >= 200 {
-		c.zoom = 200
 	}
 }

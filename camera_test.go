@@ -69,12 +69,9 @@ func TestZoom(t *testing.T) {
 		t.Error(err)
 	}
 
-	c.Zoom(-1000)
-	assert.Equal(t, c.zoom, int16(1), "zoom should be 0")
+	c.ZoomIn()
+	assert.Equal(t, int(c.zoom), 16, "zoom should be 16")
 
-	c.Zoom(1000)
-	assert.Equal(t, c.zoom, int16(200), "zoom should be 200")
-
-	c.Zoom(-1)
-	assert.Equal(t, c.zoom, int16(199), "zoom should be 199")
+	c.ZoomOut()
+	assert.Equal(t, int(c.zoom), 8, "zoom should be 8")
 }
