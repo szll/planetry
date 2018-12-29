@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - This changelog
-- Add body Id into body object description and getBodyById function to lua scope
+- Add body id into body object description and getBodyById function to lua scope
+- Attach camera to body by body id in scene description (target id)
+- Draw bodies in real size
 
 ### Changed
 - Updated dependencies (SDL 2.0.9)
-- Draw bodies in real size
 
 ## [1.0.0]
 Initial release

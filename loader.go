@@ -187,8 +187,14 @@ func loadScene(path string) (*Scene, error) {
 		dbs = append(dbs, db)
 	}
 
+	targetId, err := v.GetString("targetId")
+	if err != nil {
+		fmt.Println("Target ID is not set in scene description")
+	}
+
 	return &Scene{
 		Bodies:          dbs,
+		TargetId:				 targetId,
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          nil,
 		BackgroundColor: bgColor,

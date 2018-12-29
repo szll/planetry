@@ -127,7 +127,7 @@ func TestSimulateSceneRemovePointsFromPath(t *testing.T) {
 
 	s.Simulate(1)
 
-	assert.Equal(t, len(s.Bodies[0].Path), 50, "path queue should have 50 entries")
+	assert.Equal(t, len(s.Bodies[0].Path), MAX_TRACING_POINTS, "path queue should have MAX_TRACING_POINTS entries")
 }
 
 func TestDraw(t *testing.T) {

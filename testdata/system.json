@@ -13,6 +13,7 @@
     "blue": 22,
     "alpha": 250
   },
+  "targetId": "sun",
   "bodies": [
     {
       "id": "sun",

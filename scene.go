@@ -4,8 +4,8 @@ import (
 	"github.com/stevedonovan/luar"
 )
 
-const SIMULATION_STEP = float64(24 * 60 * 60)
-const MAX_TRACING_POINTS = 50
+const SIMULATION_STEP = float64(24 * 60 * 60) // one earth day
+const MAX_TRACING_POINTS = 1
 
 type Renderer interface {
 	SetDrawColor(r, g, b, a uint8) error
@@ -21,6 +21,7 @@ type DrawableBody struct {
 
 type Scene struct {
 	Bodies          []*DrawableBody
+	TargetId				string
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
 	BackgroundColor *Color
@@ -98,9 +99,14 @@ func (s *Scene) Draw(renderer Renderer) {
 	scale := s.GetScale()
 
 	for _, drawableBody := range s.Bodies {
-		// Check if camera is attached to this body
-		// Set camera position to this object
+		x := int(drawableBody.PhysicalBody.Position.X * scale)
+		y := int(drawableBody.PhysicalBody.Position.Y * scale)
 
+		if s.TargetId != "" && drawableBody.PhysicalBody.ID == s.TargetId {
+			s.Camera.SetToPosition(-x, -y)
+		}
+
+		// Tracing path
 		for _, point := range drawableBody.Path {
 			x := int(point.X*scale) + s.Camera.x
 			y := int(point.Y*scale) + s.Camera.y
@@ -108,6 +114,15 @@ func (s *Scene) Draw(renderer Renderer) {
 				DrawCircle(renderer, x, y, 0, *drawableBody.Color)
 			}
 		}
+
+		// X and Y realtive to camera
+		DrawCircle(
+			renderer,
+			x + s.Camera.x,
+			y + s.Camera.y,
+			1,
+			*drawableBody.Color,
+		)
 	}
 }
 
