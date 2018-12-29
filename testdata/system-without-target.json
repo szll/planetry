@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "meta": {
+    "units": {
+      "position": "au",
+      "velocity": "km/s",
+      "radius": "km"
+    }
+  },
+  "backgroundColor": {
+    "red": 22,
+    "green": 22,
+    "blue": 22,
+    "alpha": 250
+  },
+  "bodies": [
+    {
+      "id": "sun",
+      "name": "Sun",
+      "mass": 1.98892e30,
+      "radius": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "color": {
+        "red": 255,
+        "green": 255,
+        "blue": 60,
+        "alpha": 250
+      }
+    }, {
+      "id": "merc",
+      "name": "Mercury",
+      "mass": 3.33011e23,
+      "radius": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.387,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 47.36,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "color": {
+        "red": 180,
+        "green": 90,
+        "blue": 90,
+        "alpha": 250
+      }
+    }, {
+      "id": "ven",
+      "name": "Venus",
+      "mass": 4.8685e24,
+      "radius": 1.0,
+      "position": {
+        "x": 0.723,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": -35.02,
+        "z": 0.0
+      },
+      "color": {
+        "red": 80,
+        "green": 180,
+        "blue": 80,
+        "alpha": 250
+      }
+    }, {
+      "id": "earth",
+      "name": "Earth",
+      "mass": 5.9742e24,
+      "radius": 1.0,
+      "position": {
+        "x": -1.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 29.783,
+        "z": 0.0
+      },
+      "color": {
+        "red": 100,
+        "green": 100,
+        "blue": 255,
+        "alpha": 250
+      }
+    }, {
+      "id": "mars",
+      "name": "Mars",
+      "mass": 6.4171e23,
+      "radius": 1.0,
+      "position": {
+        "x": -1.524,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 24.07,
+        "z": 0.0
+      },
+      "color": {
+        "red": 250,
+        "green": 128,
+        "blue": 0,
+        "alpha": 250
+      }
+    }, {
+      "id": "jup",
+      "name": "Jupiter",
+      "mass": 1.89819e27,
+      "radius": 1,
+      "position": {
+        "x": -5.204,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 13.06,
+        "z": 0.0
+      },
+      "color": {
+        "red": 110,
+        "green": 100,
+        "blue": 90,
+        "alpha": 250
+      }
+    }, {
+      "id": "sat",
+      "name": "Saturn",
+      "mass": 5.6834e26,
+      "radius": 1.0,
+      "position": {
+        "x": -9.582,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 9.68,
+        "z": 0.0
+      },
+      "color": {
+        "red": 150,
+        "green": 140,
+        "blue": 100,
+        "alpha": 250
+      }
+    }, {
+      "id": "uranus",
+      "name": "Uranus",
+      "mass": 8.6813e25,
+      "radius": 1.0,
+      "position": {
+        "x": -19.201,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 6.8,
+        "z": 0.0
+      },
+      "color": {
+        "red": 200,
+        "green": 250,
+        "blue": 250,
+        "alpha": 250
+      }
+    }, {
+      "id": "nep",
+      "name": "Neptune",
+      "mass": 1.02413e26,
+      "radius": 1.0,
+      "position": {
+        "x": -30.047,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 5.43,
+        "z": 0.0
+      },
+      "color": {
+        "red": 50,
+        "green": 60,
+        "blue": 250,
+        "alpha": 250
+      }
+    }, {
+      "id": "bs1",
+      "name": "Big Star",
+      "mass": 6e30,
+      "radius": 1.0,
+      "position": {
+        "x": -15,
+        "y": -30.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 4.5,
+        "z": 0.0
+      },
+      "color": {
+        "red": 250,
+        "green": 50,
+        "blue": 50,
+        "alpha": 250
+      }
+    }
+  ]
+}
