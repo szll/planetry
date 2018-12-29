@@ -102,7 +102,7 @@ Planetry needs data about what it's going to simulate, e.g. the solarsystem. A s
 }
 ```
 
-It consists of four properties:
+It consists of the following properties:
  - **version** (int): is the version of the scene file structure
  - **meta** (object): meta itself is an object which contains meta data about the scene
    - **units** (object): contains information about the units used for the **bodies** in the current scene file
@@ -110,7 +110,8 @@ It consists of four properties:
      - **velocity** (string): unit used for velocity values
      - **radius** (string): unit used for radius value
  - **backgroundColor** (object): defines the scene background color and has the typical color properties: **red**, **green**, **blue**, **alpha**.
- - **bodies** (array of objects): This is the representation of all the objects in the scene like stars or planets.
+ - **targetId** (string, *optional*): is the id of a body; this body will be centered within the view.
+ - **bodies** (array of objects): this is the representation of all the objects in the scene like stars or planets.
 
 <!--
   TODO: describe bodies
