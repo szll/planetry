@@ -1,7 +1,5 @@
 package main
 
-// "fmt"
-
 const SIMULATION_STEP = float64(24 * 60 * 60) // one earth day
 const MAX_TRACING_POINTS = 50
 
