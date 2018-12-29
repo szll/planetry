@@ -70,6 +70,11 @@ func loadVector3D(obj *jason.Object) (*Vector3D, error) {
 }
 
 func loadBody(obj *jason.Object) (*Body, error) {
+	id, err := obj.GetString("id")
+	if err != nil {
+		return nil, err
+	}
+
 	name, err := obj.GetString("name")
 	if err != nil {
 		return nil, err
@@ -114,6 +119,7 @@ func loadBody(obj *jason.Object) (*Body, error) {
 	velocity.Z = velocity.Z * 1000
 
 	return &Body{
+		ID:				id,
 		Name:     name,
 		Mass:     mass,
 		Radius:   radius,
@@ -181,12 +187,17 @@ func loadScene(path string) (*Scene, error) {
 		dbs = append(dbs, db)
 	}
 
+	targetId, err := v.GetString("targetId")
+	if err != nil {
+		fmt.Println("Target ID is not set in scene description")
+	}
+
 	return &Scene{
 		Bodies:          dbs,
+		TargetId:				 targetId,
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          nil,
 		BackgroundColor: bgColor,
-		zoom:            10,
 		destroyed:       false,
 		simulations:     0,
 		paused:          false,

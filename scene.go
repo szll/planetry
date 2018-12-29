@@ -1,10 +1,6 @@
 package main
 
-import (
-	"github.com/stevedonovan/luar"
-)
-
-const SIMULATION_STEP = float64(24 * 60 * 60)
+const SIMULATION_STEP = float64(24 * 60 * 60) // one earth day
 const MAX_TRACING_POINTS = 50
 
 type Renderer interface {
@@ -21,10 +17,10 @@ type DrawableBody struct {
 
 type Scene struct {
 	Bodies          []*DrawableBody
+	TargetId        string
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
 	BackgroundColor *Color
-	zoom            int16
 	destroyed       bool
 	simulations     int64
 	paused          bool
@@ -99,38 +95,40 @@ func (s *Scene) Draw(renderer Renderer) {
 	scale := s.GetScale()
 
 	for _, drawableBody := range s.Bodies {
-		renderer.SetDrawColor(
-			drawableBody.Color.Red,
-			drawableBody.Color.Green,
-			drawableBody.Color.Blue,
-			drawableBody.Color.Alpha,
-		)
+		x := int(drawableBody.PhysicalBody.Position.X * scale)
+		y := int(drawableBody.PhysicalBody.Position.Y * scale)
+
+		if s.TargetId != "" && drawableBody.PhysicalBody.ID == s.TargetId {
+			s.Camera.SetToPosition(-x, -y)
+		}
+
+		// Tracing path
 		for _, point := range drawableBody.Path {
 			x := int(point.X*scale) + s.Camera.x
 			y := int(point.Y*scale) + s.Camera.y
 			if s.Camera.IsVisible(x, y) {
-				renderer.DrawPoint(x, y)
+				DrawCircle(renderer, x, y, 0, *drawableBody.Color)
 			}
 		}
+
+		// X and Y realtive to camera
+		drawingRadius := int((drawableBody.PhysicalBody.Radius / AU) * scale)
+
+		DrawCircle(
+			renderer,
+			x+s.Camera.x,
+			y+s.Camera.y,
+			drawingRadius,
+			*drawableBody.Color,
+		)
 	}
 }
 
 func (s *Scene) GetScale() float64 {
-	return float64(s.zoom) / AU
-}
-
-func (s *Scene) Zoom(amount int16) {
-	s.zoom = s.zoom + amount
-	if s.zoom <= 0 {
-		s.zoom = 1
-	}
-	if s.zoom >= 200 {
-		s.zoom = 200
-	}
+	return float64(s.Camera.zoom) / AU
 }
 
 func (s *Scene) Destroy() {
-	// TODO: free resources / nil refrences
 	s.destroyed = true
 }
 
@@ -149,85 +147,3 @@ func (s *Scene) IsPaused() bool {
 func (s *Scene) SetPaused(paused bool) {
 	s.paused = paused
 }
-
-// Following functions are available in lua scope
-
-func (s *Scene) GetBodyByName(name string) *Body {
-	for _, dBody := range s.Bodies {
-		if dBody.PhysicalBody.Name == name {
-			return dBody.PhysicalBody
-		}
-	}
-	return nil
-}
-
-func CreatePoint3D(x, y, z float64) *Point3D {
-	return &Point3D{X: x, Y: y, Z: z}
-}
-
-func CreateVector3D(x, y, z float64) *Vector3D {
-	return &Vector3D{X: x, Y: y, Z: z}
-}
-
-func CreateBody(name string, mass, radius float64, position *Point3D, velocity *Vector3D) *Body {
-	return &Body{
-		Name:     name,
-		Mass:     mass,
-		Radius:   radius,
-		Position: position,
-		Velocity: velocity,
-	}
-}
-
-func (s *Scene) AddBodyToScene(body *Body, red, green, blue, alpha uint8) {
-	s.Bodies = append(s.Bodies, &DrawableBody{
-		PhysicalBody: body,
-		Path:         PointQueue{},
-		Color:        &Color{Red: red, Green: green, Blue: blue, Alpha: alpha},
-	})
-}
-
-func (s *Scene) RemoveBodyByName(name string) {
-	index := -1
-	for i, dBody := range s.Bodies {
-		if dBody.PhysicalBody.Name == name {
-			index = i
-			break
-		}
-	}
-
-	if index >= 0 {
-		s.Bodies = append(s.Bodies[:index], s.Bodies[index+1:]...)
-	}
-}
-
-func (s *Scene) getVMMethodes() luar.Map {
-	return luar.Map{
-		"AU":               AU,
-		"getBodyByName":    s.GetBodyByName,
-		"getSteps":         s.GetSimulations,
-		"setPaused":        s.SetPaused,
-		"createPoint3D":    CreatePoint3D,
-		"createVector3D":   CreateVector3D,
-		"createBody":       CreateBody,
-		"addBodyToScene":   s.AddBodyToScene,
-		"removeBodyByName": s.RemoveBodyByName,
-	}
-}
-
-// void draw_circle(SDL_Point center, int radius, SDL_Color color)
-// {
-//     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-//     for (int w = 0; w < radius * 2; w++)
-//     {
-//         for (int h = 0; h < radius * 2; h++)
-//         {
-//             int dx = radius - w; // horizontal offset
-//             int dy = radius - h; // vertical offset
-//             if ((dx*dx + dy*dy) <= (radius * radius))
-//             {
-//                 SDL_RenderDrawPoint(renderer, center.x + dx, center.y + dy);
-//             }
-//         }
-//     }
-// }

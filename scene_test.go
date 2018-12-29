@@ -2,13 +2,13 @@ package main
 
 import (
 	"testing"
-
 	"github.com/stretchr/testify/assert"
 )
 
 func createTestingScene() *Scene {
 	db1 := DrawableBody{
 		PhysicalBody: &Body{
+			ID:     "n1id",
 			Name:   "n1",
 			Mass:   1,
 			Radius: 1,
@@ -34,6 +34,7 @@ func createTestingScene() *Scene {
 
 	db2 := DrawableBody{
 		PhysicalBody: &Body{
+			ID:     "n2id",
 			Name:   "n2",
 			Mass:   1,
 			Radius: 1,
@@ -64,7 +65,6 @@ func createTestingScene() *Scene {
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          c,
 		BackgroundColor: &Color{},
-		zoom:            10,
 		destroyed:       false,
 		simulations:     0,
 		paused:          false,
@@ -126,7 +126,7 @@ func TestSimulateSceneRemovePointsFromPath(t *testing.T) {
 
 	s.Simulate(1)
 
-	assert.Equal(t, len(s.Bodies[0].Path), 50, "path queue should have 50 entries")
+	assert.Equal(t, len(s.Bodies[0].Path), MAX_TRACING_POINTS, "path queue should have MAX_TRACING_POINTS entries")
 }
 
 func TestDraw(t *testing.T) {
@@ -135,18 +135,6 @@ func TestDraw(t *testing.T) {
 
 	// This should not fail; TODO: I know it's poor testing at this point ...
 	s.Draw(&MockRenderer{})
-}
-
-func TestZoom(t *testing.T) {
-	s := createTestingScene()
-	s.Zoom(-1000)
-	assert.Equal(t, s.zoom, int16(1), "zoom should be 0")
-
-	s.Zoom(1000)
-	assert.Equal(t, s.zoom, int16(200), "zoom should be 200")
-
-	s.Zoom(-1)
-	assert.Equal(t, s.zoom, int16(199), "zoom should be 199")
 }
 
 func TestDestroy(t *testing.T) {
@@ -175,67 +163,4 @@ func TestSetPaused(t *testing.T) {
 	s := createTestingScene()
 	s.SetPaused(true)
 	assert.Equal(t, s.IsPaused(), true, "IsPaused should return true")
-}
-
-func TestGetBodyByName(t *testing.T) {
-	s := createTestingScene()
-	b := s.GetBodyByName("n1")
-
-	assert.Exactly(t, b, s.Bodies[0].PhysicalBody, "b should be s.Bodies[0].PhysicalBody")
-
-	assert.Nil(t, s.GetBodyByName("x1"))
-}
-
-func TestCreatePoint3D(t *testing.T) {
-	p := CreatePoint3D(1, 2, 3)
-	assert.Equal(t, p, &Point3D{X: 1, Y: 2, Z: 3}, "points should be equal")
-}
-
-func TestCreateVector3D(t *testing.T) {
-	p := CreateVector3D(1, 2, 3)
-	assert.Equal(t, p, &Vector3D{X: 1, Y: 2, Z: 3}, "vectors should be equal")
-}
-
-func TestCreateBody(t *testing.T) {
-	p := &Point3D{X: 1, Y: 2, Z: 3}
-	v := &Vector3D{X: 1, Y: 2, Z: 3}
-
-	b := CreateBody("name", 1, 1, p, v)
-	b2 := &Body{
-		Name:     "name",
-		Mass:     1,
-		Radius:   1,
-		Position: p,
-		Velocity: v,
-	}
-
-	assert.Equal(t, b, b2, "bodies should be equal")
-}
-
-func TestAddBodyToScene(t *testing.T) {
-	s := createTestingScene()
-
-	p := &Point3D{X: 1, Y: 2, Z: 3}
-	v := &Vector3D{X: 1, Y: 2, Z: 3}
-	b := CreateBody("name", 1, 1, p, v)
-
-	s.AddBodyToScene(b, 10, 10, 10, 10)
-
-	b2 := s.GetBodyByName("name")
-
-	assert.Exactly(t, b, b2, "bodies should be exactly the same")
-}
-
-func TestRemoveBodyFromScene(t *testing.T) {
-	s := createTestingScene()
-	s.RemoveBodyByName("n1")
-
-	assert.Nil(t, s.GetBodyByName("n1"), "getBodyByName should return nil")
-}
-
-func TestGetVMMethodes(t *testing.T) {
-	s := createTestingScene()
-	m := s.getVMMethodes()
-
-	assert.Equal(t, len(m), 9, "getVMMethodes should return map containing four functions")
 }

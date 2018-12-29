@@ -103,9 +103,9 @@ func run() int {
 						scene.SetPaused(!paused)
 					}
 				case sdl.K_x:
-					scene.Zoom(1)
+					scene.Camera.ZoomIn()
 				case sdl.K_y:
-					scene.Zoom(-1)
+					scene.Camera.ZoomOut()
 				}
 			}
 		}
@@ -128,7 +128,7 @@ func run() int {
 
 		// Sleep the remaining loop time
 		delta, ticks = timer.getTime()
-		if ticks < 1000/LOOPS_PER_SECOND {
+		if ticks < 1000 / LOOPS_PER_SECOND {
 			sdl.Delay((1000 / LOOPS_PER_SECOND) - ticks)
 		}
 

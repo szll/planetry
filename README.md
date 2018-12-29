@@ -76,6 +76,7 @@ Planetry needs data about what it's going to simulate, e.g. the solarsystem. A s
   },
   "bodies": [
     {
+      "id": "sun",
       "name": "Sun",
       "mass": 1.98892e30,
       "radius": 1.0,
@@ -132,8 +133,8 @@ habitableZoneCheckDone = false
 function habitableZone()
   local steps = getSteps()
   if steps > 0 and steps % 7 == 0 and not habitableZoneCheckDone then
-    local earth = getBodyByName("Earth")
-    local sun = getBodyByName("Sun")
+    local earth = getBodyById("earth")
+    local sun = getBodyById("sun")
     local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
     
     local toClose = d < AU * 0.95
@@ -148,7 +149,7 @@ function habitableZone()
   end
 end
 
--- This function is also availbale to other scripts since it's in the global scope
+-- This function is also available to other scripts since it's in the global scope
 distance = function (x1, y1, z1, x2, y2, z2)
   local dx = x2-x1
   local dy = y2-y1
@@ -165,6 +166,7 @@ The reason is: on file load, planetry will parse the file for one function of th
 #### Functions and constants available in LuaVM
 
 Currently available Go functions in Lua scope are:
+ - `getBodyById(id string) *Body`: returns a body of the current scene by its id; the name is specified in the scene file
  - `getBodyByName(name string) *Body`: returns a body of the current scene by its name; the name is specified in the scene file
  - `getSteps() int`: returns the simulation steps (currently days)
  - `setPaused(paused bool)`: pauses or unpauses the simulation, depending on the `paused` value
@@ -179,11 +181,17 @@ Also the constant value of the astronomical unit `AU` is available in the Lua sc
 
 As you may noticed: this project is in a really early stage of development. Here's the stuff that has to be done next:
 
-- Draw bodies in their real size; not just pixels
-- "on pause scripts" that allow to print data when the user or scripts pause the simulation
-- Attach camera to object
-- Draw name on pause
-- Collision
-- Alter speed
-- Runtime memory functions for scripting
-- 3D rendering
+- [x] Attach camera to object
+- [x] Draw bodies in their real size; not just pixels
+- [ ] Scripts per scene description
+- [ ] Create project by command
+- [ ] "on pause scripts" that allow to print data when the user or scripts pause the simulation
+- [ ] Draw name on pause
+- [ ] Collision
+- [ ] Alter speed
+- [ ] Runtime memory functions for scripting
+- [ ] 3D rendering
+
+## Know Issues
+
+- Window appears but no objects were drawn. After switching to MacOS Moajve I had to update the go dependencies as well as SDL on the system.

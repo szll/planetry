@@ -138,6 +138,7 @@ func TestLoadVector3DError(t *testing.T) {
 func TestLoadBody(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -163,6 +164,7 @@ func TestLoadBody(t *testing.T) {
 		t.Error(err)
 	}
 
+	assert.Equal(t, b.ID, "id", "Name should be 'id'")
 	assert.Equal(t, b.Name, "name", "Name should be 'name'")
 	assert.Equal(t, b.Mass, 1.0, "Mass should be 1")
 	assert.Equal(t, b.Radius, 1.0, "Radius should be 1")
@@ -176,9 +178,38 @@ func TestLoadBody(t *testing.T) {
 	assert.Equal(t, b.Velocity.Z, 6000.0, "Z should be 6000")
 }
 
+func TestLoadBodyErrorId(t *testing.T) {
+	body := `
+		{
+			"name": "name",
+			"mass": 1.0,
+			"radius": 1.0,
+			"position": {
+				"x": 1.0,
+				"y": 2.0,
+				"z": 3.0
+			},
+			"velocity": {
+				"x": 4.0,
+				"y": 5.0,
+				"z": 6.0
+			}
+		}
+	`
+
+	bObj, err := jason.NewObjectFromBytes([]byte(body))
+	if err != nil {
+		t.Error(err)
+	}
+
+	_, err = loadBody(bObj)
+	assert.Equal(t, err.Error(), "key not found", "should return error 'key not found'")
+}
+
 func TestLoadBodyErrorName(t *testing.T) {
 	body := `
 		{
+			"id": "sun",
 			"mass": 1.0,
 			"radius": 1.0,
 			"position": {
@@ -206,6 +237,7 @@ func TestLoadBodyErrorName(t *testing.T) {
 func TestLoadBodyErrorMass(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"radius": 1.0,
 			"position": {
@@ -233,6 +265,7 @@ func TestLoadBodyErrorMass(t *testing.T) {
 func TestLoadBodyErrorRadius(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"position": {
@@ -260,6 +293,7 @@ func TestLoadBodyErrorRadius(t *testing.T) {
 func TestLoadBodyErrorPosition(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -283,6 +317,7 @@ func TestLoadBodyErrorPosition(t *testing.T) {
 func TestLoadBodyErrorPoint3D(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -310,6 +345,7 @@ func TestLoadBodyErrorPoint3D(t *testing.T) {
 func TestLoadBodyErrorVelocity(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -333,6 +369,7 @@ func TestLoadBodyErrorVelocity(t *testing.T) {
 func TestLoadBodyErrorVector3D(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -360,6 +397,7 @@ func TestLoadBodyErrorVector3D(t *testing.T) {
 func TestLoadDrawableBody(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -398,6 +436,7 @@ func TestLoadDrawableBody(t *testing.T) {
 func TestLoadDrawableBodyErrorBody(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"mass": 1.0,
 			"radius": 1.0,
 			"position": {
@@ -431,6 +470,7 @@ func TestLoadDrawableBodyErrorBody(t *testing.T) {
 func TestLoadDrawableBodyErrorColor(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -459,6 +499,7 @@ func TestLoadDrawableBodyErrorColor(t *testing.T) {
 func TestLoadDrawableBodyErrorLoadColor(t *testing.T) {
 	body := `
 		{
+			"id": "id",
 			"name": "name",
 			"mass": 1.0,
 			"radius": 1.0,
@@ -490,7 +531,16 @@ func TestLoadDrawableBodyErrorLoadColor(t *testing.T) {
 }
 
 func TestLoadScene(t *testing.T) {
-	s, err := loadScene("./testdata/system.json")
+	s, err := loadScene("./testdata/system-second-star.json")
+	if err != nil {
+		t.Error(err)
+	}
+
+	assert.NotNil(t, s)
+}
+
+func TestLoadSceneWithoutTarget(t *testing.T) {
+	s, err := loadScene("./testdata/system-second-star-without-target.json")
 	if err != nil {
 		t.Error(err)
 	}
@@ -514,5 +564,5 @@ func TestLoadAllLuaFiles(t *testing.T) {
 		t.Error(err)
 	}
 
-	assert.Equal(t, len(fileContents), 1, "there should be one file loaded")
+	assert.Equal(t, len(fileContents), 2, "there should be one file loaded")
 }

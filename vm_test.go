@@ -22,7 +22,7 @@ func TestLoadScripts(t *testing.T) {
 		t.Error(err)
 	}
 
-	assert.True(t, ls == 1, "two scripts should have been loaded")
+	assert.True(t, ls == 2, "two scripts should have been loaded")
 
 	vm.Destroy()
 }

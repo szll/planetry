@@ -13,13 +13,12 @@
     "blue": 22,
     "alpha": 250
   },
-  "targetId": "sun",
   "bodies": [
     {
       "id": "sun",
       "name": "Sun",
       "mass": 1.98892e30,
-      "radius": 696342.0,
+      "radius": 1.0,
       "position": {
         "x": 0.0,
         "y": 0.0,
@@ -202,6 +201,27 @@
         "red": 50,
         "green": 60,
         "blue": 250,
+        "alpha": 250
+      }
+    }, {
+      "id": "bs1",
+      "name": "Big Star",
+      "mass": 6e30,
+      "radius": 1.0,
+      "position": {
+        "x": -15,
+        "y": -30.0,
+        "z": 0.0
+      },
+      "velocity": {
+        "x": 0.0,
+        "y": 4.5,
+        "z": 0.0
+      },
+      "color": {
+        "red": 250,
+        "green": 50,
+        "blue": 50,
         "alpha": 250
       }
     }
