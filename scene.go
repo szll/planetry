@@ -1,11 +1,9 @@
 package main
 
-import (
-	// "fmt"
-)
+// "fmt"
 
 const SIMULATION_STEP = float64(24 * 60 * 60) // one earth day
-const MAX_TRACING_POINTS = 1
+const MAX_TRACING_POINTS = 50
 
 type Renderer interface {
 	SetDrawColor(r, g, b, a uint8) error
@@ -21,7 +19,7 @@ type DrawableBody struct {
 
 type Scene struct {
 	Bodies          []*DrawableBody
-	TargetId				string
+	TargetId        string
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
 	BackgroundColor *Color
@@ -107,25 +105,21 @@ func (s *Scene) Draw(renderer Renderer) {
 		}
 
 		// Tracing path
-		// for _, point := range drawableBody.Path {
-		// 	x := int(point.X*scale) + s.Camera.x
-		// 	y := int(point.Y*scale) + s.Camera.y
-		// 	if s.Camera.IsVisible(x, y) {
-		// 		DrawCircle(renderer, x, y, 1, *drawableBody.Color)
-		// 	}
-		// }
+		for _, point := range drawableBody.Path {
+			x := int(point.X*scale) + s.Camera.x
+			y := int(point.Y*scale) + s.Camera.y
+			if s.Camera.IsVisible(x, y) {
+				DrawCircle(renderer, x, y, 0, *drawableBody.Color)
+			}
+		}
 
 		// X and Y realtive to camera
 		drawingRadius := int((drawableBody.PhysicalBody.Radius / AU) * scale)
 
-		// if drawableBody.PhysicalBody.ID == "sun" {
-		// 	fmt.Println(drawingRadius, drawableBody.PhysicalBody.Radius / AU, scale)
-		// }
-
 		DrawCircle(
 			renderer,
-			x + s.Camera.x,
-			y + s.Camera.y,
+			x+s.Camera.x,
+			y+s.Camera.y,
 			drawingRadius,
 			*drawableBody.Color,
 		)
