@@ -231,9 +231,17 @@ func TestRemoveBodyFromScene(t *testing.T) {
 	assert.Nil(t, s.GetBodyByName("n1"), "getBodyByName should return nil")
 }
 
+func TestRemoveBodyFromSceneById(t *testing.T) {
+	s := createTestingScene()
+	s.RemoveBodyById("n1id")
+
+	assert.Nil(t, s.GetBodyById("n1id"), "getBodyById should return nil")
+}
+
+
 func TestGetVMMethodes(t *testing.T) {
 	s := createTestingScene()
 	m := s.getVMMethodes()
 
-	assert.Equal(t, len(m), 10, "getVMMethodes should return map containing 10 entries")
+	assert.Equal(t, len(m), 11, "getVMMethodes should return map containing 10 entries")
 }

@@ -197,6 +197,20 @@ func (s *Scene) AddBodyToScene(body *Body, red, green, blue, alpha uint8) {
 	})
 }
 
+func (s *Scene) RemoveBodyById(id string) {
+	index := -1
+	for i, dBody := range s.Bodies {
+		if dBody.PhysicalBody.ID == id {
+			index = i
+			break
+		}
+	}
+
+	if index >= 0 {
+		s.Bodies = append(s.Bodies[:index], s.Bodies[index+1:]...)
+	}
+}
+
 func (s *Scene) RemoveBodyByName(name string) {
 	index := -1
 	for i, dBody := range s.Bodies {
@@ -215,13 +229,14 @@ func (s *Scene) getVMMethodes() luar.Map {
 	return luar.Map{
 		"AU":               AU,
 		"getBodyById":      s.GetBodyById,
-		"getBodyByName":    s.GetBodyByName,
+		"getBodyByName":    s.GetBodyByName,		// DEPRECATED
 		"getSteps":         s.GetSimulations,
 		"setPaused":        s.SetPaused,
 		"createPoint3D":    CreatePoint3D,
 		"createVector3D":   CreateVector3D,
 		"createBody":       CreateBody,
 		"addBodyToScene":   s.AddBodyToScene,
-		"removeBodyByName": s.RemoveBodyByName,
+		"removeBodyByName": s.RemoveBodyByName, // DEPRECATED
+		"removeBodyById":   s.RemoveBodyById,
 	}
 }

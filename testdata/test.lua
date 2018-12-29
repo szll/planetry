@@ -6,6 +6,19 @@ function habitableZone()
   if steps > 0 and steps % 7 == 0 and not habitableZoneCheckDone then
     local earth = getBodyById("earth")
     local sun = getBodyById("sun")
+
+    if earth == nil then
+      print("earth does not exist")
+      habitableZoneCheckDone = true
+      return
+    end
+    
+    if sun == nil then
+      print("sun does not exist")
+      habitableZoneCheckDone = true
+      return 
+    end
+
     local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
     
     local toClose = d < AU * 0.95

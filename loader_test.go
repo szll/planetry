@@ -531,7 +531,7 @@ func TestLoadDrawableBodyErrorLoadColor(t *testing.T) {
 }
 
 func TestLoadScene(t *testing.T) {
-	s, err := loadScene("./testdata/system.json")
+	s, err := loadScene("./testdata/system-second-star.json")
 	if err != nil {
 		t.Error(err)
 	}
@@ -540,7 +540,7 @@ func TestLoadScene(t *testing.T) {
 }
 
 func TestLoadSceneWithoutTarget(t *testing.T) {
-	s, err := loadScene("./testdata/system-without-target.json")
+	s, err := loadScene("./testdata/system-second-star-without-target.json")
 	if err != nil {
 		t.Error(err)
 	}
@@ -564,5 +564,5 @@ func TestLoadAllLuaFiles(t *testing.T) {
 		t.Error(err)
 	}
 
-	assert.Equal(t, len(fileContents), 1, "there should be one file loaded")
+	assert.Equal(t, len(fileContents), 2, "there should be one file loaded")
 }
