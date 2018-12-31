@@ -2,10 +2,11 @@ package main
 
 import (
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
-func createTestingScene() *Scene {
+func createTestingScene(scripts []string) *Scene {
 	db1 := DrawableBody{
 		PhysicalBody: &Body{
 			ID:     "n1id",
@@ -62,6 +63,8 @@ func createTestingScene() *Scene {
 
 	return &Scene{
 		Bodies:          []*DrawableBody{&db1, &db2},
+		TargetId:        "n1id",
+		Scripts:         scripts,
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          c,
 		BackgroundColor: &Color{},
@@ -86,7 +89,7 @@ func (m *MockRenderer) DrawPoint(x, y int) error {
 }
 
 func TestSimulateScene(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.Simulate(1)
 
 	// TODO: check the values
@@ -110,7 +113,7 @@ func TestSimulateScenePaused(t *testing.T) {
 }
 
 func TestSimulateSceneErrorGetAttraction(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.Bodies[1].PhysicalBody.Position.X = 1
 
 	err := s.Simulate(1)
@@ -119,8 +122,8 @@ func TestSimulateSceneErrorGetAttraction(t *testing.T) {
 }
 
 func TestSimulateSceneRemovePointsFromPath(t *testing.T) {
-	s := createTestingScene()
-	for i := 0; i < 100; i++ {
+	s := createTestingScene([]string{})
+	for i := 0; i < MAX_TRACING_POINTS+10; i++ {
 		s.Bodies[0].Path.Push(Point3D{})
 	}
 
@@ -130,7 +133,7 @@ func TestSimulateSceneRemovePointsFromPath(t *testing.T) {
 }
 
 func TestDraw(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.Simulate(1)
 
 	// This should not fail; TODO: I know it's poor testing at this point ...
@@ -138,29 +141,29 @@ func TestDraw(t *testing.T) {
 }
 
 func TestDestroy(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.Destroy()
 	assert.Equal(t, s.destroyed, true, "destroyed should be true")
 }
 
 func TestIsDestroyed(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.Destroy()
 	assert.Equal(t, s.IsDestroyed(), true, "IsDestroyed should return true")
 }
 
 func TestGetSimulations(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	assert.Equal(t, s.GetSimulations(), int64(0), "GetSimulations should return 0")
 }
 
 func TestIsPaused(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	assert.Equal(t, s.IsPaused(), false, "IsPaused should return false")
 }
 
 func TestSetPaused(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.SetPaused(true)
 	assert.Equal(t, s.IsPaused(), true, "IsPaused should return true")
 }

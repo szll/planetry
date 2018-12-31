@@ -2,11 +2,12 @@ package main
 
 import (
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetBodyById(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	b := s.GetBodyById("n1id")
 
 	assert.Exactly(t, b, s.Bodies[0].PhysicalBody, "b should be s.Bodies[0].PhysicalBody")
@@ -15,7 +16,7 @@ func TestGetBodyById(t *testing.T) {
 }
 
 func TestGetBodyByName(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	b := s.GetBodyByName("n1")
 
 	assert.Exactly(t, b, s.Bodies[0].PhysicalBody, "b should be s.Bodies[0].PhysicalBody")
@@ -37,8 +38,9 @@ func TestCreateBody(t *testing.T) {
 	p := &Point3D{X: 1, Y: 2, Z: 3}
 	v := &Vector3D{X: 1, Y: 2, Z: 3}
 
-	b := CreateBody("name", 1, 1, p, v)
+	b := CreateBody("id", "name", 1, 1, p, v)
 	b2 := &Body{
+		ID:       "id",
 		Name:     "name",
 		Mass:     1,
 		Radius:   1,
@@ -50,11 +52,11 @@ func TestCreateBody(t *testing.T) {
 }
 
 func TestAddBodyToScene(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 
 	p := &Point3D{X: 1, Y: 2, Z: 3}
 	v := &Vector3D{X: 1, Y: 2, Z: 3}
-	b := CreateBody("name", 1, 1, p, v)
+	b := CreateBody("id", "name", 1, 1, p, v)
 
 	s.AddBodyToScene(b, 10, 10, 10, 10)
 
@@ -64,22 +66,21 @@ func TestAddBodyToScene(t *testing.T) {
 }
 
 func TestRemoveBodyFromScene(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.RemoveBodyByName("n1")
 
 	assert.Nil(t, s.GetBodyByName("n1"), "getBodyByName should return nil")
 }
 
 func TestRemoveBodyFromSceneById(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	s.RemoveBodyById("n1id")
 
 	assert.Nil(t, s.GetBodyById("n1id"), "getBodyById should return nil")
 }
 
-
 func TestGetVMMethodes(t *testing.T) {
-	s := createTestingScene()
+	s := createTestingScene([]string{})
 	m := s.getVMMethodes()
 
 	assert.Equal(t, len(m), 11, "getVMMethodes should return map containing 10 entries")

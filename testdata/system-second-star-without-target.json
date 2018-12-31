@@ -13,6 +13,9 @@
     "blue": 22,
     "alpha": 250
   },
+  "scripts": [
+    "script-test.lua"
+  ],
   "bodies": [
     {
       "id": "sun",

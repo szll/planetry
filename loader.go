@@ -119,7 +119,7 @@ func loadBody(obj *jason.Object) (*Body, error) {
 	velocity.Z = velocity.Z * 1000
 
 	return &Body{
-		ID:				id,
+		ID:       id,
 		Name:     name,
 		Mass:     mass,
 		Radius:   radius,
@@ -192,9 +192,15 @@ func loadScene(path string) (*Scene, error) {
 		fmt.Println("Target ID is not set in scene description")
 	}
 
+	scripts, err := v.GetStringArray("scripts")
+	if err != nil {
+		fmt.Println("Scripts property is not set in scene description")
+	}
+
 	return &Scene{
 		Bodies:          dbs,
-		TargetId:				 targetId,
+		TargetId:        targetId,
+		Scripts:         scripts,
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          nil,
 		BackgroundColor: bgColor,
@@ -204,7 +210,7 @@ func loadScene(path string) (*Scene, error) {
 	}, nil
 }
 
-func loadAllLuaFiles(dir string) ([]string, error) {
+func loadLuaFiles(dir string, scriptNames []string) ([]string, error) {
 	fi, err := os.Stat(dir)
 	if err != nil {
 		return []string{}, err
@@ -222,7 +228,19 @@ func loadAllLuaFiles(dir string) ([]string, error) {
 	luaFiles := []string{}
 	for _, file := range files {
 		fileName := file.Name()
+
 		if !file.IsDir() && strings.Contains(fileName, ".lua") {
+			found := false
+			for _, scriptNames := range scriptNames {
+				if fileName == scriptNames {
+					found = true
+				}
+			}
+
+			if !found {
+				continue
+			}
+
 			content, err := ioutil.ReadFile(path.Join(dir, fileName))
 			if err != nil {
 				return nil, err

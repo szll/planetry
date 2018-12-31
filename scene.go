@@ -1,7 +1,9 @@
 package main
 
-const SIMULATION_STEP = float64(24 * 60 * 60) // one earth day
-const MAX_TRACING_POINTS = 50
+const SIMULATION_STEP = float64(24 * 60 * 60) // one real life earth day
+const MAX_TRACING_POINTS = 200
+
+var defaultColor = Color{Red: 127, Green: 127, Blue: 127, Alpha: 255}
 
 type Renderer interface {
 	SetDrawColor(r, g, b, a uint8) error
@@ -18,6 +20,7 @@ type DrawableBody struct {
 type Scene struct {
 	Bodies          []*DrawableBody
 	TargetId        string
+	Scripts         []string
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
 	BackgroundColor *Color
@@ -107,12 +110,12 @@ func (s *Scene) Draw(renderer Renderer) {
 			x := int(point.X*scale) + s.Camera.x
 			y := int(point.Y*scale) + s.Camera.y
 			if s.Camera.IsVisible(x, y) {
-				DrawCircle(renderer, x, y, 0, *drawableBody.Color)
+				DrawCircle(renderer, x, y, 0, defaultColor)
 			}
 		}
 
 		// X and Y realtive to camera
-		drawingRadius := int((drawableBody.PhysicalBody.Radius / AU) * scale)
+		drawingRadius := 1 // int((drawableBody.PhysicalBody.Radius / AU) * scale)
 
 		DrawCircle(
 			renderer,

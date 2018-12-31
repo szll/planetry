@@ -10,7 +10,7 @@ import (
 const WINDOW_TITLE = "Planetry"
 const WINDOW_WIDTH = 1024
 const WINDOW_HEIGHT = 768
-const LOOPS_PER_SECOND = 365 / 2
+const LOOPS_PER_SECOND = 365 / 4 // Thats the speed of the simulation
 const N_TH_LOOP = LOOPS_PER_SECOND / 60
 
 func setUpScene(sceneFilePath string, cameraPosX, cameraPosY, windowWidth, windowHeight int) (*Scene, error) {
@@ -128,7 +128,7 @@ func run() int {
 
 		// Sleep the remaining loop time
 		delta, ticks = timer.getTime()
-		if ticks < 1000 / LOOPS_PER_SECOND {
+		if ticks < 1000/LOOPS_PER_SECOND {
 			sdl.Delay((1000 / LOOPS_PER_SECOND) - ticks)
 		}
 
