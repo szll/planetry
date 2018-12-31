@@ -17,7 +17,7 @@ function letSunDisappear()
     end
 
     local mass = sun.Mass / 2
-    local velocity = 33500
+    local velocity = 33500 -- This is waaaaaaay to fast! TODO: need to find better values here ...
     local distance = 0.1 * AU
 
     -- Add a binary star where the sun was, both stars should be stable ...
