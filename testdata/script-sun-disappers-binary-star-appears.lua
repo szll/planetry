@@ -1,5 +1,4 @@
-local letSunDisappearDone = false
-local letNewStarAppearDone = false
+local swapDone = false
 
 function letSunDisappear()
   local steps = getSteps()
@@ -8,7 +7,7 @@ function letSunDisappear()
     setPaused(true)
   end
 
-  if steps >= 365 and not letSunDisappearDone then
+  if steps >= 365 and not swapDone then
     local sun = getBodyById("sun")
     
     -- Remove Sun
@@ -30,6 +29,6 @@ function letSunDisappear()
     addBodyToScene(beta, 255, 0, 255, 255)
     print("created beta")
 
-    letNewStarAppearDone = true
+    swapDone = true
   end
 end
