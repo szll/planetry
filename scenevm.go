@@ -32,8 +32,9 @@ func CreateVector3D(x, y, z float64) *Vector3D {
 	return &Vector3D{X: x, Y: y, Z: z}
 }
 
-func CreateBody(name string, mass, radius float64, position *Point3D, velocity *Vector3D) *Body {
+func CreateBody(id, name string, mass, radius float64, position *Point3D, velocity *Vector3D) *Body {
 	return &Body{
+		ID:       id,
 		Name:     name,
 		Mass:     mass,
 		Radius:   radius,
@@ -82,7 +83,7 @@ func (s *Scene) getVMMethodes() luar.Map {
 	return luar.Map{
 		"AU":               AU,
 		"getBodyById":      s.GetBodyById,
-		"getBodyByName":    s.GetBodyByName,		// DEPRECATED
+		"getBodyByName":    s.GetBodyByName, // DEPRECATED
 		"getSteps":         s.GetSimulations,
 		"setPaused":        s.SetPaused,
 		"createPoint3D":    CreatePoint3D,

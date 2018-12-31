@@ -38,8 +38,9 @@ func TestCreateBody(t *testing.T) {
 	p := &Point3D{X: 1, Y: 2, Z: 3}
 	v := &Vector3D{X: 1, Y: 2, Z: 3}
 
-	b := CreateBody("name", 1, 1, p, v)
+	b := CreateBody("id", "name", 1, 1, p, v)
 	b2 := &Body{
+		ID:       "id",
 		Name:     "name",
 		Mass:     1,
 		Radius:   1,
@@ -55,7 +56,7 @@ func TestAddBodyToScene(t *testing.T) {
 
 	p := &Point3D{X: 1, Y: 2, Z: 3}
 	v := &Vector3D{X: 1, Y: 2, Z: 3}
-	b := CreateBody("name", 1, 1, p, v)
+	b := CreateBody("id", "name", 1, 1, p, v)
 
 	s.AddBodyToScene(b, 10, 10, 10, 10)
 
