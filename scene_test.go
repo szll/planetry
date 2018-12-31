@@ -63,6 +63,7 @@ func createTestingScene(scripts []string) *Scene {
 
 	return &Scene{
 		Bodies:          []*DrawableBody{&db1, &db2},
+		TargetId:        "n1id",
 		Scripts:         scripts,
 		ForcesOfBodies:  map[*DrawableBody]Vector3D{},
 		Camera:          c,
