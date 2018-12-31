@@ -2,20 +2,28 @@ local letSunDisappearDone = false
 local letNewStarAppearDone = false
 
 function letSunDisappear()
-  if getSteps() >= 365 and not letSunDisappearDone then
+  local steps = getSteps()
+
+  if steps == 364 or steps == 366 then
+    setPaused(true)
+  end
+
+  if steps >= 365 and not letSunDisappearDone then
+    local sun = getBodyById("sun")
+    
+    -- Remove Sun
     if getBodyById("sun") ~= nil then
       removeBodyById("sun")
       letSunDisappearDone = true
     end
-  end
 
-  if getSteps() >= 366 and not letNewStarAppearDone then
-    local mass = 1.98892e30 / 2
+    local mass = sun.Mass / 2
     local velocity = 33500
     local distance = 0.1 * AU
 
+    -- Add a binary star where the sun was, both stars should be stable ...
     local alpha = createBody("alpha", "Alpha", mass, 1, createPoint3D(0, distance, 0), createVector3D(velocity, 0, 0))
-    addBodyToScene(alpha, 255, 255, 0, 255)
+    addBodyToScene(alpha, 255, 0, 255, 255)
     print("created alpha")
     
     local beta = createBody("beta", "Beta", mass, 1, createPoint3D(0, -distance, 0), createVector3D(-velocity, 0, 0))
@@ -23,9 +31,5 @@ function letSunDisappear()
     print("created beta")
 
     letNewStarAppearDone = true
-  end
-
-  if getSteps() == 368 or getSteps() == 400 then
-    setPaused(true)
   end
 end

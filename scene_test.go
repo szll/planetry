@@ -123,7 +123,7 @@ func TestSimulateSceneErrorGetAttraction(t *testing.T) {
 
 func TestSimulateSceneRemovePointsFromPath(t *testing.T) {
 	s := createTestingScene([]string{})
-	for i := 0; i < 100; i++ {
+	for i := 0; i < MAX_TRACING_POINTS+10; i++ {
 		s.Bodies[0].Path.Push(Point3D{})
 	}
 
