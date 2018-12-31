@@ -8,7 +8,7 @@ func TestNewVM(t *testing.T) {
 
 	assert.Nil(t, vm, "vm should be nil")
 
-	vm2 := NewVM(createTestingScene())
+	vm2 := NewVM(createTestingScene([]string{}))
 
 	assert.NotNil(t, vm2, "vm2 should not be nil")
 
@@ -16,7 +16,7 @@ func TestNewVM(t *testing.T) {
 }
 
 func TestLoadScripts(t *testing.T) {
-	vm := NewVM(createTestingScene())
+	vm := NewVM(createTestingScene([]string{"script-test.lua", "script-sun-disappears-after-365-steps.lua"}))
 	ls, err := vm.LoadScripts("./testdata")
 	if err != nil {
 		t.Error(err)
@@ -28,7 +28,7 @@ func TestLoadScripts(t *testing.T) {
 }
 
 func TestCallScripts(t *testing.T) {
-	vm := NewVM(createTestingScene())
+	vm := NewVM(createTestingScene([]string{}))
 	_, err := vm.LoadScripts("./testdata")
 	if err != nil {
 		t.Error(err)

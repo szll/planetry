@@ -50,7 +50,7 @@ func (vm *Vm) Destroy() {
 
 // LoadScripts loads all lua scripts inside a given directory
 func (vm *Vm) LoadScripts(dir string) (int, error) {
-	luaFiles, err := loadAllLuaFiles(dir)
+	luaFiles, err := loadLuaFiles(dir, vm.scene.Scripts)
 	if err != nil {
 		return 0, err
 	}

@@ -18,6 +18,7 @@ type DrawableBody struct {
 type Scene struct {
 	Bodies          []*DrawableBody
 	TargetId        string
+	Scripts         []string
 	ForcesOfBodies  map[*DrawableBody]Vector3D
 	Camera          *Camera
 	BackgroundColor *Color

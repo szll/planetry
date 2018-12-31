@@ -554,15 +554,15 @@ func TestLoadSceneErrorReadFile(t *testing.T) {
 }
 
 func TestLoadSceneErrorNewObjectFromBytes(t *testing.T) {
-	_, err := loadScene("./testdata/test.lua")
+	_, err := loadScene("./testdata/script-test.lua")
 	assert.Equal(t, err.Error(), "invalid character 'h' looking for beginning of value")
 }
 
-func TestLoadAllLuaFiles(t *testing.T) {
-	fileContents, err := loadAllLuaFiles("./testdata")
+func TestLoadLuaFiles(t *testing.T) {
+	fileContents, err := loadLuaFiles("./testdata", []string{"script-test.lua"})
 	if err != nil {
 		t.Error(err)
 	}
 
-	assert.Equal(t, len(fileContents), 2, "there should be one file loaded")
+	assert.Equal(t, len(fileContents), 1, "there should be one file loaded")
 }
