@@ -39,7 +39,7 @@ To build the executable type: `go build`
 
 ## Usage
 
-When the executable was build, you can start the simulation by typing:
+After the executable was build, you can start the simulation by typing:
 
 ```
 ./planetry

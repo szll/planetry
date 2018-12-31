@@ -15,8 +15,20 @@ function habitableZone()
   if steps > 0 and steps % 7 == 0 and not habitableZoneCheckDone then
     local earth = getBodyById("earth")
     local sun = getBodyById("sun")
-    local d = distance(earth.Position.X, earth.Position.Y, earth.Position.Z, sun.Position.X, sun.Position.Y, sun.Position.Z)  
+
+    if earth == nil then
+      print("earth does not exist")
+      habitableZoneCheckDone = true
+      return
+    end
     
+    if sun == nil then
+      print("sun does not exist")
+      habitableZoneCheckDone = true
+      return 
+    end
+
+    local d = distance(earth, sun)
     local toClose = d < AU * 0.95
     local toFar = d > AU * 2.4
 
@@ -30,10 +42,10 @@ function habitableZone()
 end
 
 -- This function is also available to other scripts since it's in the global scope
-distance = function (x1, y1, z1, x2, y2, z2)
-  local dx = x2-x1
-  local dy = y2-y1
-  local dz = z2-z1
+distance = function (body1, body2)
+  local dx = body2.Position.X - body1.Position.X
+  local dy = body2.Position.Y - body1.Position.Y
+  local dz = body2.Position.Z - body1.Position.Z
   return math.abs(math.sqrt(dx*dx+dy*dy+dz*dz))
 end
 ```
