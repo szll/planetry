@@ -62,16 +62,15 @@ See [docs/SCENE.md](docs/SCENE.md).
 
 See [docs/SCRIPTING.md](docs/SCRIPTING.md).
 
-## TODO
+## Roadmap
 
 As you may noticed: this project is in a really early stage of development. Here's the stuff that has to be done next:
 
-- [x] Attach camera to object
-- [x] Draw bodies in their real size; not just pixels
-- [x] Scripts per scene description
-- [ ] Create project by command
+- [x] Attach camera to object (v1)
+- [x] Draw bodies in their real size; not just pixels (v1)
+- [x] Scripts per scene description (v2)
+- [ ] Create project by command (v2)
 - [ ] Live time / event script support like on pause, on start up, ...
-- [ ] Draw name on pause
 - [ ] Collision
 - [ ] Alter speed
 - [ ] Runtime memory functions for scripting
