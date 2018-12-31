@@ -566,3 +566,8 @@ func TestLoadLuaFiles(t *testing.T) {
 
 	assert.Equal(t, len(fileContents), 1, "there should be one file loaded")
 }
+
+func TestLoadLuaFilesErrorNoDir(t *testing.T) {
+	_, err := loadLuaFiles("./testdata/script-test.lua", []string{})
+	assert.Equal(t, err.Error(), "./testdata/script-test.lua is not a directory")
+}
