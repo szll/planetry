@@ -11,7 +11,7 @@ function letSunDisappear()
     local sun = getBodyById("sun")
     
     -- Remove Sun
-    if getBodyById("sun") ~= nil then
+    if sun ~= nil then
       removeBodyById("sun")
       letSunDisappearDone = true
     end
