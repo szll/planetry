@@ -87,7 +87,7 @@ func (s *Scene) Simulate(delta float64) error {
 	return nil
 }
 
-func (s *Scene) Draw(renderer Renderer) {
+func (s *Scene) Draw(renderer Renderer, windowWidth, windowHeight int) {
 	renderer.SetDrawColor(
 		s.BackgroundColor.Red,
 		s.BackgroundColor.Green,
@@ -96,6 +96,8 @@ func (s *Scene) Draw(renderer Renderer) {
 	renderer.Clear()
 
 	scale := s.GetScale()
+
+	DrawGrid(renderer, scale, windowWidth, windowHeight)
 
 	for _, drawableBody := range s.Bodies {
 		x := int(drawableBody.PhysicalBody.Position.X * scale)

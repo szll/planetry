@@ -122,7 +122,7 @@ func run() int {
 
 		// Draw only every nth loop to save expensive drawing time
 		if loop%N_TH_LOOP == 0 {
-			scene.Draw(renderer)
+			scene.Draw(renderer, WINDOW_WIDTH, WINDOW_HEIGHT)
 			renderer.Present()
 		}
 

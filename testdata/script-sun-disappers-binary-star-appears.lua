@@ -20,11 +20,11 @@ function letSunDisappear()
     -- Add a binary star where the sun was, both stars should be stable ...
     local alpha = createBody("alpha", "Alpha", mass, 1, createPoint3D(0, distance, 0), createVector3D(velocity, 0, 0))
     addBodyToScene(alpha, 255, 0, 255, 255)
-    print("created alpha")
+    print("created alpha", steps)
     
     local beta = createBody("beta", "Beta", mass, 1, createPoint3D(0, -distance, 0), createVector3D(-velocity, 0, 0))
     addBodyToScene(beta, 255, 0, 255, 255)
-    print("created beta")
+    print("created beta", steps)
 
     swapDone = true
   end
