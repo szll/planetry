@@ -17,8 +17,8 @@ function letSunDisappear()
     end
 
     local mass = sun.Mass / 2
-    local velocity = 33500 -- This is waaaaaaay to fast! TODO: need to find better values here ...
-    local distance = 0.1 * AU
+    local velocity = 33500 -- m/s
+    local distance = 0.1 * AU -- astronoical unit
 
     -- Add a binary star where the sun was, both stars should be stable ...
     local alpha = createBody("alpha", "Alpha", mass, 1, createPoint3D(0, distance, 0), createVector3D(velocity, 0, 0))
