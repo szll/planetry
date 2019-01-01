@@ -3,18 +3,15 @@ local swapDone = false
 function letSunDisappear()
   local steps = getSteps()
 
-  if steps == 364 or steps == 366 then
-    setPaused(true)
-  end
+  -- Pause script before and after swap
+  if steps == 364 or steps == 366 then setPaused(true) end
 
+  -- Do the swap (sun with binary star) after 365 steps
   if steps >= 365 and not swapDone then
     local sun = getBodyById("sun")
     
     -- Remove Sun
-    if sun ~= nil then
-      removeBodyById("sun")
-      letSunDisappearDone = true
-    end
+    if sun ~= nil then removeBodyById("sun") end
 
     local mass = sun.Mass / 2
     local velocity = 33500 -- m/s
