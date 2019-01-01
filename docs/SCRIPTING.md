@@ -64,7 +64,7 @@ Currently available Go functions in Lua scope are:
  - `setPaused(paused bool)`: pauses or unpauses the simulation, depending on the `paused` value
  - `createPoint3D(x, y, z float64) *Point3D`: creates a new Point3D
  - `createVector3D(x, y, z float64) *Vector3D`: creates a new Vector3D
- - `createBody(name string, mass, radius float64, position *Point3D, velocity *Vector3D) *Body`: creates a new body`
+ - `createBody(id, name string, mass, radius float64, position *Point3D, velocity *Vector3D) *Body`: creates a new body`
  - `addBodyToScene(body *Body, red, green, blue, alpha int) err`: adds a new body to the scene
 
 Also the constant value of the astronomical unit `AU` is available in the Lua scope.
