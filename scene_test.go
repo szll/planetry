@@ -137,7 +137,7 @@ func TestDraw(t *testing.T) {
 	s.Simulate(1)
 
 	// This should not fail; TODO: I know it's poor testing at this point ...
-	s.Draw(&MockRenderer{})
+	s.Draw(&MockRenderer{}, 800, 600)
 }
 
 func TestDestroy(t *testing.T) {
