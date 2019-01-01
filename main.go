@@ -8,8 +8,8 @@ import (
 )
 
 const WINDOW_TITLE = "Planetry"
-const WINDOW_WIDTH = 1024
-const WINDOW_HEIGHT = 768
+const WINDOW_WIDTH = 800
+const WINDOW_HEIGHT = 600
 const LOOPS_PER_SECOND = 365 / 4 // Thats the speed of the simulation
 const N_TH_LOOP = LOOPS_PER_SECOND / 60
 
