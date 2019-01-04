@@ -27,6 +27,7 @@ type Scene struct {
 	destroyed       bool
 	simulations     int64
 	paused          bool
+	speed           int
 }
 
 func (s *Scene) Simulate(delta float64) error {

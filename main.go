@@ -10,8 +10,38 @@ import (
 const WINDOW_TITLE = "Planetry"
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
-const LOOPS_PER_SECOND = 365 / 4 // Thats the speed of the simulation
-const N_TH_LOOP = LOOPS_PER_SECOND / 60
+
+var divisor uint32 = 4
+var loopsPerSecond uint32 = 365 / divisor
+var nthLoop uint64 = uint64(loopsPerSecond) / 20
+
+func alterSpeed(increase bool) {
+	switch increase {
+	case true:
+		divisor -= 1
+		if divisor < 1 {
+			divisor = 1
+		}
+	case false:
+		divisor += 1
+		if divisor > 365 {
+			divisor = 365
+		}
+	}
+
+	loopsPerSecond = 365 / divisor
+
+	if (loopsPerSecond) < 20 {
+		loopsPerSecond = 20
+		if increase {
+			divisor -= 1
+		} else {
+			divisor += 1
+		}
+	}
+
+	nthLoop = uint64(loopsPerSecond) / 20
+}
 
 func setUpScene(sceneFilePath string, cameraPosX, cameraPosY, windowWidth, windowHeight int) (*Scene, error) {
 	scene, err := loadScene(sceneFilePath)
@@ -87,7 +117,7 @@ func run() int {
 	timer := Timer{}
 	timer.start()
 
-	var loop int64 = 0 // These are also the simulated days
+	var loop uint64 = 0 // These are also the simulated days
 	for running {
 		paused = scene.IsPaused()
 
@@ -106,6 +136,10 @@ func run() int {
 					scene.Camera.ZoomIn()
 				case sdl.K_y:
 					scene.Camera.ZoomOut()
+				case sdl.K_a:
+					alterSpeed(false)
+				case sdl.K_s:
+					alterSpeed(true)
 				}
 			}
 		}
@@ -121,15 +155,15 @@ func run() int {
 		}
 
 		// Draw only every nth loop to save expensive drawing time
-		if loop%N_TH_LOOP == 0 {
+		if loop%nthLoop == 0 {
 			scene.Draw(renderer, WINDOW_WIDTH, WINDOW_HEIGHT)
 			renderer.Present()
 		}
 
 		// Sleep the remaining loop time
 		delta, ticks = timer.getTime()
-		if ticks < 1000/LOOPS_PER_SECOND {
-			sdl.Delay((1000 / LOOPS_PER_SECOND) - ticks)
+		if ticks < 1000/loopsPerSecond {
+			sdl.Delay((1000 / loopsPerSecond) - ticks)
 		}
 
 		loop = loop + 1
