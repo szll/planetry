@@ -17,12 +17,12 @@ var nthLoop uint64 = uint64(loopsPerSecond) / 20
 
 func alterSpeed(increase bool) {
 	switch increase {
-	case false:
+	case true:
 		divisor -= 1
 		if divisor < 1 {
 			divisor = 1
 		}
-	case true:
+	case false:
 		divisor += 1
 		if divisor > 365 {
 			divisor = 365
