@@ -11,32 +11,32 @@ const WINDOW_TITLE = "Planetry"
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 600
 
-var speed uint32 = 4
-var loopsPerSecond uint32 = 365 / speed
+var divisor uint32 = 4
+var loopsPerSecond uint32 = 365 / divisor
 var nthLoop uint64 = uint64(loopsPerSecond) / 20
 
 func alterSpeed(increase bool) {
 	switch increase {
 	case false:
-		speed -= 1
-		if speed < 1 {
-			speed = 1
+		divisor -= 1
+		if divisor < 1 {
+			divisor = 1
 		}
 	case true:
-		speed += 1
-		if speed > 365 {
-			speed = 365
+		divisor += 1
+		if divisor > 365 {
+			divisor = 365
 		}
 	}
 
-	loopsPerSecond = 365 / speed
+	loopsPerSecond = 365 / divisor
 
 	if (loopsPerSecond) < 20 {
 		loopsPerSecond = 20
 		if increase {
-			speed -= 1
+			divisor -= 1
 		} else {
-			speed += 1
+			divisor += 1
 		}
 	}
 
