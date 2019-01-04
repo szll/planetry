@@ -51,7 +51,9 @@ Feel free to add more Lua scripts or edit `testdata/system.json`.
 
 On runtime, you can use:
  - `y` to zoom out,
- - `x` to zoom in and
+ - `x` to zoom in,
+ - `s` to speed up,
+ - `a` to speed down,
  - `SPACE` to pause/unpause
 
 ### Describing the simulated scene
@@ -69,11 +71,11 @@ As you may noticed: this project is in a really early stage of development. Here
 - [x] Attach camera to object (v1)
 - [x] Draw bodies in their real size; not just pixels (v1)
 - [x] Scripts per scene description (v2)
-- [x] Draw grid
+- [x] Draw grid (v2)
+- [x] Alter speed (v2)
 - [ ] Create project by command (v2)
 - [ ] Live time / event script support like on pause, on start up, ...
 - [ ] Collision
-- [ ] Alter speed
 - [ ] Runtime memory functions for scripting
 - [ ] 3D rendering
 
