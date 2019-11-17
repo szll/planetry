@@ -26,6 +26,14 @@
   version = "v1.1.1"
 
 [[projects]]
+  digest = "1:d741c40674d5d73ae7bfad6a4b5c920bcc2492ce776ea606d83c91a05a093e0a"
+  name = "github.com/docopt/docopt-go"
+  packages = ["."]
+  pruneopts = ""
+  revision = "784ddc588536785e7299f7272f39101f7faccc3f"
+  version = "0.6.2"
+
+[[projects]]
   digest = "1:256484dbbcd271f9ecebc6795b2df8cad4c458dd0f5fd82a8c2fa0c29f233411"
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
@@ -63,6 +71,7 @@
   input-imports = [
     "github.com/aarzilli/golua/lua",
     "github.com/antonholmquist/jason",
+    "github.com/docopt/docopt-go",
     "github.com/stevedonovan/luar",
     "github.com/stretchr/testify/assert",
     "github.com/veandco/go-sdl2/sdl",
