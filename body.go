@@ -13,7 +13,7 @@ type Body struct {
 	Velocity *Vector3D
 }
 
-// GetAttraction calculates the grafitational force between two bodies
+// GetAttraction calculates the gravitational force between two bodies
 func (b *Body) GetAttraction(o *Body) (*Vector3D, error) {
 	v := b.Position.VectorBetween(o.Position)
 	l := v.Length() // Also distance between bodies
