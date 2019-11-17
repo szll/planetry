@@ -22,4 +22,5 @@ echo "remove sdl2 dir"
 rm -rf SDL2-2.0.9
 
 echo "install lua"
+sudo apt-get update
 sudo apt-get install liblua5.1
