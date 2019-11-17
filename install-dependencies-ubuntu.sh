@@ -2,8 +2,9 @@
 
 set +e
 
-echo "install dep"
-go get -u github.com/golang/dep/cmd/dep
+echo "install lua"
+sudo apt-get update
+sudo apt-get install liblua5.1
 
 echo "download and unzip sdl2"
 curl -o sdl2.tar.gz http://libsdl.org/release/SDL2-2.0.9.tar.gz
@@ -21,6 +22,5 @@ cd ../..
 echo "remove sdl2 dir"
 rm -rf SDL2-2.0.9
 
-echo "install lua"
-sudo apt-get update
-sudo apt-get install liblua5.1
+echo "install dep"
+go get -u github.com/golang/dep/cmd/dep
