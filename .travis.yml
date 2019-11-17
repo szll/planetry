@@ -10,7 +10,7 @@ go:
 sudo: enabled
 
 before_install:
-  - ./install-dependencies-ubuntu.sh
+  - bash install-dependencies-ubuntu.sh
   - go get golang.org/x/tools/cmd/cover
   - go get github.com/mattn/goveralls
 
