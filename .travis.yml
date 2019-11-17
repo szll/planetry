@@ -18,5 +18,5 @@ install:
   - dep ensure
 
 script:
-  - go test -v -covermode=count -coverprofile=coverage.out 
+  - go test -v -covermode=count -coverprofile=coverage.out -tags test
   - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
