@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/szll/planetry.svg?branch=master)](https://travis-ci.org/szll/planetry)
 [![Coverage Status](https://coveralls.io/repos/github/szll/planetry/badge.svg?branch=master)](https://coveralls.io/github/szll/planetry?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/szll/planetry)](https://goreportcard.com/report/github.com/szll/planetry)
 
 **ATTENTION:** this project is totally **WORK IN PROGRESS**
 
