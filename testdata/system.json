@@ -15,7 +15,7 @@
   },
   "targetId": "sun",
   "scripts": [
-    "script-sun-disappers-binary-star-appears.lua"
+    "script-sun-disappears-binary-star-appears.lua"
   ],
   "bodies": [
     {
