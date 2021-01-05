@@ -54,7 +54,7 @@ On runtime, you can use:
  - `y` to zoom out,
  - `x` to zoom in,
  - `s` to speed up,
- - `a` to speed down,
+ - `a` to slow down,
  - `SPACE` to pause/unpause
 
 ### Describing the simulated scene
